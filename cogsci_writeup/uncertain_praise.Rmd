@@ -113,7 +113,7 @@ The present work asks whether young children can track the informativeness of ot
 ###Participants
 
 ```{r}
-load("d_filt_adult.RData")
+load("data/d_filt_adult.RData")
 
 adult.dems <- d_filt_adult %>%
   ungroup() %>%
@@ -211,7 +211,7 @@ In Experiment 2, children themselves completed two tracings, and then watched th
 This experiment was preregistered in October 2017; the form can be found here: https://aspredicted.org/4r9dh.pdf. 
 
 ```{r}
-load("d_filt_e2.RData")
+load("data/d_filt_e2.RData")
 
 e2.dems <- d_filt_e2 %>%
   ungroup() %>%
@@ -388,7 +388,7 @@ Notably, in this experiment, teachers patterns' of praise differed in two import
 ###Participants
 
 ```{r}
-load("d_filt_e3.RData")
+load("data/d_filt_e3.RData")
 
 e3.dems <- d_filt_e3 %>% 
   ungroup() %>%
