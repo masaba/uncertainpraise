@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-22T21:59:06Z",
+    "AutoApprovalTime": "2017-10-22T21:58:21Z",
+    "AssignmentId": "33TIN5LC05NOIGJHTU02HDZIVMDY9L",
+    "WorkerId": "A23N5LWKJ5V0L7",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "6"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "3"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "OP",
+                "SP"
+            ],
+            "curr_teacher": "Jane",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "46"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "english"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "white"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "female"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "no"
+                    }
+                ]
+            ],
+            "explanation": "Because Jane's feedback is more realistic and critical, while the other lady approves everything and is fake.",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_SP_Jane",
+            "teacher_order": [
+                "Susan",
+                "Jane"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-22T21:38:45Z",
+    "HITId": "3UXQ63NLAAZKKQUMIXK6QRWUTLRBL2",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-22T21:43:21Z"
+}

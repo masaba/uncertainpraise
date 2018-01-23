@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-22T22:06:06Z",
+    "AutoApprovalTime": "2017-10-22T22:05:25Z",
+    "AssignmentId": "3JV9LGBJWURR3C2N1DXE73N3LP9GOJ",
+    "WorkerId": "A23KAJRDVCVGOE",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "2"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "6"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "SP",
+                "OP"
+            ],
+            "curr_teacher": "Susan",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "38"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "english"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "asian"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "male"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "video was slow load"
+                    }
+                ]
+            ],
+            "explanation": "because it is a brighter color",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_OP_Susan",
+            "teacher_order": [
+                "Jane",
+                "Susan"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-22T21:38:34Z",
+    "HITId": "3UXQ63NLAAZKKQUMIXK6QRWUTLRBL2",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-22T21:50:25Z"
+}

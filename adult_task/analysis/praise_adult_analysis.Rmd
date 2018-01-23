@@ -1,0 +1,431 @@
+---
+title: "Praise Adult Analysis"
+author: "Mika Asaba (masaba@stanford.edu)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    highlight: pygments
+    theme: flatly
+    toc: yes
+    toc_float: true
+  pdf_document:
+    toc: yes
+  word_document:
+    toc: yes
+---
+
+Load Relevant Libraries and Functions
+-------------------------------------------------
+```{r, echo=FALSE, include=F}
+rm(list=ls())
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(langcog) 
+library(rjson) #reading in JSON files
+library(lme4) 
+library(psych)
+library(R.matlab) #reading in MATLAB files
+library(readr)
+library(ggthemes)
+library(here)
+theme_set(theme_few())
+```
+
+
+**Muliplot function.**
+```{r,echo=FALSE}
+#combining multiple graphs into one
+#example: multiplot(name_graph1, name_graph2)
+
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+```
+
+Experiment 1
+------------------------------------------------
+### Read in data
+```{r, echo=FALSE}
+path <- "/Users/masaba/Dropbox/Research/UP_mTurk/"
+files <- dir(paste0(path,"data/rd1/"), 
+             pattern = "*.json")
+
+data.raw <- data.frame() #for practice data
+demog.raw <- data.frame()
+
+for (f in files) {
+  jf <- paste0(path, "data/rd1/",f)
+  jd <- fromJSON(paste(readLines(jf), collapse=""))
+  
+  #data frame for identity data
+  data <- data.frame(workerid = factor(jd$WorkerId),
+                     warmup = factor(jd$answers$data$warmup_response[[1]][[1]]$value),
+                     teachername1 = factor(jd$answers$data$teacher_order[1]),
+                     teachername2 = factor(jd$answers$data$teacher_order[2]),
+                     teachertype1 = factor(jd$answers$data$trial_order[1]),
+                     teachertype2 = factor(jd$answers$data$trial_order[2]),
+                     memcheck1 = factor(jd$answers$data$memcheck_response[[1]][[1]]$value),
+                     memcheck2 = factor(jd$answers$data$memcheck_response[[2]][[1]]$value),
+                     tracing = factor(jd$answers$data$tracing_response[[1]][[1]]$value),
+                     nicer = factor(jd$answers$data$nicer_response[[1]][[1]]$value),
+                     explanation = factor(jd$answers$data$explanation),
+                     age = factor(jd$answer$data$demographics[[1]][[1]]$value),
+                     lang = factor(jd$answer$data$demographics[[1]][[2]]$value),
+                     race = factor(jd$answer$data$demographics[[1]][[3]]$value),
+                     gender = factor(jd$answer$data$demographics[[1]][[4]]$value),
+                     browser = factor(jd$answer$data$demographics[[1]][[5]]$value),
+                     issues = factor(jd$answer$data$demographics[[1]][[6]]$value))
+  
+  data.raw <- bind_rows(data.raw,data)
+}
+```
+
+### Data preprocessing
+```{r}
+data.pre <- data.raw %>%
+  transmute(id = workerid,
+            age = age,
+            lang = lang,
+            gender = gender,
+         warmupcheck = warmup == "A",
+         sp = ifelse(teachertype1 == "SP", teachername1, teachername2),
+         op = ifelse(teachertype1 == "OP", teachername1, teachername2),
+         tracing = ifelse(tracing == "Jane_tracing", "Jane", "Susan"),
+         tracing_choice = ifelse(tracing == sp, "Contingent Praise Teacher", "Overpraise Teacher"),
+         tracing_choseContingent = tracing_choice == "Contingent Praise Teacher",
+         nicer_choice = ifelse(nicer == sp, "Contingent Praise Teacher", "Overpraise Teacher"),
+         memcheck_sp = ifelse(teachertype1 == "SP", memcheck1 == 3, memcheck2 == 3),
+         memcheck_op = ifelse(teachertype1 == "OP", memcheck1 == 6, memcheck2 == 6),
+         explanation = explanation)
+```
+
+### Exclude subjects
+**Remove subjects who failed warmup evaluation question, or either memory check.**
+```{r}
+data.fin <- data.pre %>%
+  filter(warmupcheck == TRUE,
+         memcheck_sp == TRUE,
+         memcheck_op == TRUE)
+
+data.ex.warmup <- data.pre %>%
+  filter(warmupcheck == FALSE)
+
+#4 failed the warm up check question
+
+data.ex.memsp <- data.pre %>%
+  filter(memcheck_sp == FALSE)
+
+data.ex.memop <- data.pre %>%
+  filter(memcheck_op == FALSE)
+```
+
+### Demographics
+```{r}
+age.table <- data.fin %>%
+  ungroup() %>%
+  summarise(n = n(),
+            mean.age = mean(as.numeric(age)),
+            sd.age = sd(as.numeric(age)),
+            min.age = min(as.numeric(age)),
+            max.age = max(as.numeric(age)))
+
+age.table
+
+gender.table = table(data.fin$gender)
+
+gender.table
+```
+Subjects were recruited from Amazon Mechanical Turk (N = `r age.table$n`, M(SD) = `r age.table$mean.age`(`r age.table$sd.age`), Range = `r min.age` - `r max.age`). Subjects were excluded for failing to pass the memory check questions (N = X).
+
+### Tables 
+
+**Tracing question: Kristen wants to enter one of these tracings into a contest. Which tracing should she bring?**
+```{r}
+tracing.table = data.fin %>%
+  group_by(tracing_choice) %>%
+  rename(choice = tracing_choice) %>%
+  summarise(n = n()) %>%
+  mutate(question = "Which tracing?",
+         freq = n / sum(n),
+         SE = sqrt(freq*(1-freq)/sum(n)), #standard error
+         E = qnorm(.975)*SE, #margin of error
+         low_95 = freq - E,
+         upp_95 = freq + E)
+
+tracing.table
+```
+
+**Niceness question: Who is nicer?**
+```{r}
+nicer.table = data.fin %>%
+  group_by(nicer_choice) %>%
+  rename(choice = nicer_choice) %>%
+  summarise(n = n()) %>%
+  mutate(question = "Who is nicer?",
+         freq = n / sum(n),
+         SE = sqrt(freq*(1-freq)/sum(n)), #standard error
+         E = qnorm(.975)*SE, #margin of error
+         low_95 = freq - E,
+         upp_95 = freq + E)
+
+nicer.table
+
+data.table = full_join(nicer.table, tracing.table)
+data.table
+
+data.table.ci = filter(data.table, choice == "Overpraise Teacher")
+data.table.ci
+```
+
+### Plots
+```{r}
+tracing.nicer.plot = ggplot(data.table, aes(question, freq, fill=choice)) +
+    geom_bar(stat="identity",position="fill",width=.5)+
+  ylab("Proportion of Choices")+
+  theme_minimal() +
+    theme(text = element_text(size=20),
+          axis.title.x=element_blank()) +
+  guides(fill=guide_legend(title="Choice"))+
+  scale_fill_manual(values=c("indianred","steelblue")) +
+  geom_linerange(data = data.table.ci, mapping=aes(x=question, ymin = low_95, ymax=upp_95))+
+  geom_hline(yintercept=.5, linetype="dotted")
+  
+tracing.nicer.plot
+```
+
+### Analyses
+**Binomial tests.**
+```{r}
+#Tracing question: Do subjects choose the Selective Praise Teacher's tracing above chance? 
+binom.test(tracing.table$n[1], tracing.table$n[1] + tracing.table$n[2])
+
+#Niceness question: Do subjects choose the Overpraise Teacher as nicer above chance?
+binom.test(nicer.table$n[1], nicer.table$n[1] + nicer.table$n[2])
+```
+
+**Chi-squared tests.**
+```{r}
+#Is there a difference between subject's choices in the Tracing vs. Niceness question?
+chisq.test(matrix(c(tracing.table$n[1], tracing.table$n[2], nicer.table$n[1], nicer.table$n[2]), ncol=2))
+```
+
+Experiment 2
+------------------------------------------------
+**The only difference between Experiment 1 and Experiment 2 is the niceness question. In Experiment 2, we ask specifically about the goal of the teacher (``One of these teachers wanted to be nice. Who was trying to be nice?''), whereas in Experiment 1, we asked about the which teacher the subject herself thought was nicer.** 
+
+### Read in data
+```{r}
+path <- "/Users/masaba/Dropbox/Research/UP_mTurk/"
+files <- dir(paste0(path,"data/rd2"), 
+             pattern = "*.json")
+
+data2.raw <- data.frame() #for practice data
+
+for (f in files) {
+  jf <- paste0(path, "data/rd2/",f)
+  jd <- fromJSON(paste(readLines(jf), collapse=""))
+  
+  #data frame for identity data
+  data2 <- data.frame(workerid = factor(jd$WorkerId),
+                     warmup = factor(jd$answers$data$warmup_response[[1]][[1]]$value),
+                     teachername1 = factor(jd$answers$data$teacher_order[1]),
+                     teachername2 = factor(jd$answers$data$teacher_order[2]),
+                     teachertype1 = factor(jd$answers$data$trial_order[1]),
+                     teachertype2 = factor(jd$answers$data$trial_order[2]),
+                     memcheck1 = factor(jd$answers$data$memcheck_response[[1]][[1]]$value),
+                     memcheck2 = factor(jd$answers$data$memcheck_response[[2]][[1]]$value),
+                     tracing = factor(jd$answers$data$tracing_response[[1]][[1]]$value),
+                     nicer = factor(jd$answers$data$nicer_response[[1]][[1]]$value),
+                     explanation = factor(jd$answers$data$explanation),
+                     age = factor(jd$answer$data$demographics[[1]][[1]]$value),
+                     lang = factor(jd$answer$data$demographics[[1]][[2]]$value),
+                     race = factor(jd$answer$data$demographics[[1]][[3]]$value),
+                     gender = factor(jd$answer$data$demographics[[1]][[4]]$value),
+                     browser = factor(jd$answer$data$demographics[[1]][[5]]$value),
+                     issues = factor(jd$answer$data$demographics[[1]][[6]]$value))
+  
+  data2.raw <- bind_rows(data2.raw,data2)
+}
+
+```
+
+### Data preprocessing
+```{r}
+data2.pre <- data2.raw %>%
+  transmute(id = workerid,
+            age = age,
+            lang = lang,
+            gender = gender,
+         warmupcheck = warmup == "A",
+         sp = ifelse(teachertype1 == "SP", teachername1, teachername2),
+         op = ifelse(teachertype1 == "OP", teachername1, teachername2),
+         tracing = ifelse(tracing == "Jane_tracing", "Jane", "Susan"),
+         tracing_choice = ifelse(tracing == sp, "Contingent Praise Teacher", "Overpraise Teacher"),
+         tracing_choseContingent = tracing_choice == "Contingent Praise Teacher",
+         nicer_choice = ifelse(nicer == sp, "Contingent Praise Teacher", "Overpraise Teacher"),
+         nicer_choseContingent = nicer_choice == "Contingent Praise Teacher",
+          memcheck_sp = ifelse(teachertype1 == "SP", memcheck1 == 3, memcheck2 == 3),
+         memcheck_op = ifelse(teachertype1 == "OP", memcheck1 == 6, memcheck2 == 6),
+         explanation = explanation,
+         condition = "sp/op")
+```
+
+### Exclude subjects
+**Remove subjects who failed warmup evaluation question, or either memory check.**
+```{r}
+data2.fin <- data2.pre %>%
+  filter(warmupcheck == TRUE,
+         memcheck_sp == TRUE,
+         memcheck_op == TRUE)
+
+data2.ex.warmup <- data2.pre %>%
+  filter(warmupcheck == FALSE)
+
+#4 failed the warm up check question
+
+data2.ex.memsp <- data2.pre %>%
+  filter(memcheck_sp == FALSE)
+
+data2.ex.memop <- data2.pre %>%
+  filter(memcheck_op == FALSE)
+```
+
+### Demographics
+```{r}
+age2.table <- data2.fin %>%
+  ungroup() %>%
+  summarise(n = n(),
+            mean.age = mean(as.numeric(age)),
+            sd.age = sd(as.numeric(age)),
+            min.age = min(as.numeric(age)),
+            max.age = max(as.numeric(age)))
+
+age2.table
+
+gender2.table = table(data2.fin$gender)
+gender2.table
+```
+
+### Tables 
+
+**Tracing question: Kristen wants to enter one of these tracings into a contest. Which tracing should she bring?**
+```{r}
+tracing2.table = data2.fin %>%
+  group_by(tracing_choice) %>%
+  rename(choice = tracing_choice) %>%
+  summarise(n = n()) %>%
+  mutate(question = "Which tracing?",
+         freq = n / sum(n),
+         SE = sqrt(freq*(1-freq)/sum(n)), #standard error
+         E = qnorm(.975)*SE, #margin of error
+         low_95 = freq - E,
+         upp_95 = freq + E)
+
+tracing2.table
+
+tracing.adult <- data2.fin %>%
+#  mutate(tracing_selective = as.numeric(tracing_selective))%>%
+  group_by(condition) %>%
+  multi_boot_standard(col = "tracing_choseContingent")
+
+tracing.adult
+```
+
+**Niceness question: Who is nicer?**
+```{r}
+nicer2.table = data2.fin %>%
+  group_by(nicer_choice) %>%
+  rename(choice = nicer_choice) %>%
+  summarise(n = n()) %>%
+  mutate(question = "Who wanted to be nice?",
+         freq = n / sum(n),
+         SE = sqrt(freq*(1-freq)/sum(n)), #standard error
+         E = qnorm(.975)*SE, #margin of error
+         low_95 = freq - E,
+         upp_95 = freq + E)
+
+nicer2.table
+
+data2.table = full_join(nicer2.table, tracing2.table)
+
+data2.table.ci = filter(data2.table, choice == "Overpraise Teacher")
+data2.table.ci
+
+nicer <- data2.fin %>%
+#  mutate(tracing_selective = as.numeric(tracing_selective))%>%
+  group_by(condition) %>%
+  multi_boot_standard(col = "tracing_choseContingent")
+
+tracing
+```
+
+### Plots
+```{r}
+tracing2.nicer.plot = ggplot(data2.table, aes(question, freq, fill=choice)) +
+    geom_bar(stat="identity",position="fill",width=.5)+
+  ylab("Proportion of Choices")+
+  theme_minimal() +
+    theme(text = element_text(size=20),
+          axis.title.x=element_blank()) +
+  guides(fill=guide_legend(title="Choice"))+
+    scale_fill_manual(values=c("indianred","steelblue")) +
+  geom_linerange(data = data2.table.ci, mapping=aes(x=question, ymin = low_95, ymax=upp_95))+
+  geom_hline(yintercept=.5, linetype="dotted")
+  
+tracing2.nicer.plot
+```
+
+### Analyses
+**Binomial tests.**
+```{r}
+#Tracing question: Do subjects choose the Selective Praise Teacher's tracing above chance? 
+binom.test(tracing2.table$n[1], tracing2.table$n[1] + tracing2.table$n[2])
+
+#Niceness question: Do subjects choose the Overpraise Teacher as nicer above chance?
+binom.test(nicer2.table$n[1], nicer2.table$n[1] + nicer2.table$n[2])
+```
+
+**Chi-squared tests.**
+```{r}
+#Is there a difference between subject's choices in the Tracing vs. Niceness question?
+chisq.test(matrix(c(tracing2.table$n[1], tracing2.table$n[2], nicer2.table$n[1], nicer2.table$n[2]), ncol=2))
+```
+
+Experiment 1 and Experiment 2
+--------------------------------------------------
+```{r}
+multiplot(tracing.nicer.plot, tracing2.nicer.plot) #both plots together
+```

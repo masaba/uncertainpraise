@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-22T22:17:06Z",
+    "AutoApprovalTime": "2017-10-22T22:16:20Z",
+    "AssignmentId": "3VSOLARPKCMN2DMT497CRJ35MLJ39L",
+    "WorkerId": "A3BKZ14V95ZNR6",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "6"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "3"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "OP",
+                "SP"
+            ],
+            "curr_teacher": "Susan",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "26"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "english"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "black"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "female"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "no"
+                    }
+                ]
+            ],
+            "explanation": "She should bring these because she would have her best tracings in there.",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_SP_Susan",
+            "teacher_order": [
+                "Jane",
+                "Susan"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-22T21:56:30Z",
+    "HITId": "3UXQ63NLAAZKKQUMIXK6QRWUTLRBL2",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-22T22:01:20Z"
+}

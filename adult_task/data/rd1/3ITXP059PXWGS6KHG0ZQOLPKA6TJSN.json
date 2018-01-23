@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-22T22:19:06Z",
+    "AutoApprovalTime": "2017-10-22T22:18:49Z",
+    "AssignmentId": "3ITXP059PXWGS6KHG0ZQOLPKA6TJSN",
+    "WorkerId": "A2SHW0VA0MJ8N0",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "6"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "3"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "OP",
+                "SP"
+            ],
+            "curr_teacher": "Susan",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "31"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "English"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "white"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "female"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "Google chrome "
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "The videos ran slow, by no big deal."
+                    }
+                ]
+            ],
+            "explanation": "I think she should bring the tracing that teacher Susan choose because she was more critical of the work. Teacher Jane was worried more about upsetting the child. ",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_SP_Susan",
+            "teacher_order": [
+                "Jane",
+                "Susan"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-22T21:39:03Z",
+    "HITId": "3UXQ63NLAAZKKQUMIXK6QRWUTLRBL2",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-22T22:03:49Z"
+}

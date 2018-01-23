@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-28T15:26:06Z",
+    "AutoApprovalTime": "2017-10-28T15:25:44Z",
+    "AssignmentId": "3NAPMVF0ZXSU3C2HLCVNUD77M4F27S",
+    "WorkerId": "A3BI98I9V2FL0T",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "3"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "6"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "SP",
+                "OP"
+            ],
+            "curr_teacher": "Jane",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "29"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "english"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "white"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "male"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "some buffering issues"
+                    }
+                ]
+            ],
+            "explanation": "i just like red",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_OP_Jane",
+            "teacher_order": [
+                "Susan",
+                "Jane"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-28T14:38:21Z",
+    "HITId": "3DA79LNS598308YECD7RUZ8Z0BX3TE",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-28T15:10:44Z"
+}

@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-28T15:00:06Z",
+    "AutoApprovalTime": "2017-10-28T14:59:42Z",
+    "AssignmentId": "3DL65MZB8ESSA99T5DYZC08AKIWCEX",
+    "WorkerId": "A22E831P684LJZ",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "6"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "3"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "OP",
+                "SP"
+            ],
+            "curr_teacher": "Jane",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "25"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "English"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "white"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "male"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "Chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "No"
+                    }
+                ]
+            ],
+            "explanation": "Teacher Susan said that all of the tracings looked equally great for Johnny even though some tracings were better than others. Teacher Jane was more discretionary in which tracings were called great.",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_SP_Jane",
+            "teacher_order": [
+                "Susan",
+                "Jane"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-28T14:38:10Z",
+    "HITId": "3DA79LNS598308YECD7RUZ8Z0BX3TE",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-28T14:44:42Z"
+}

@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-22T22:06:06Z",
+    "AutoApprovalTime": "2017-10-22T22:06:04Z",
+    "AssignmentId": "35USIKEBNST7OYD5OLOFGNA91126NT",
+    "WorkerId": "A3JGW4RGO86NPX",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "3"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "6"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "SP",
+                "OP"
+            ],
+            "curr_teacher": "Jane",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "46"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "Dutch"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "white"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "male"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "Chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "No"
+                    }
+                ]
+            ],
+            "explanation": "Because teacher Jane only put a star on the really great tracings so this one has to be great. Teacher Jane put a sticker on all tracings, good or bad so there's a possibility that this one is not good.",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_OP_Jane",
+            "teacher_order": [
+                "Susan",
+                "Jane"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-22T21:45:09Z",
+    "HITId": "3UXQ63NLAAZKKQUMIXK6QRWUTLRBL2",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-22T21:51:04Z"
+}

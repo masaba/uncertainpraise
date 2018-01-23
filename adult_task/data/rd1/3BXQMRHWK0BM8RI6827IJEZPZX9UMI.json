@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-22T22:18:06Z",
+    "AutoApprovalTime": "2017-10-22T22:17:43Z",
+    "AssignmentId": "3BXQMRHWK0BM8RI6827IJEZPZX9UMI",
+    "WorkerId": "A13WFFPE9L1QAB",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "6"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "3"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "OP",
+                "SP"
+            ],
+            "curr_teacher": "Susan",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "27"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "English"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "hispanic"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "male"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "Google Chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "no."
+                    }
+                ]
+            ],
+            "explanation": "Susan is known to give more accurate star ratings than Teacher Jane - who sugar coats and gives a star to every bad tracing from Johnny's work.",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_SP_Susan",
+            "teacher_order": [
+                "Jane",
+                "Susan"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-22T21:38:54Z",
+    "HITId": "3UXQ63NLAAZKKQUMIXK6QRWUTLRBL2",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-22T22:02:43Z"
+}

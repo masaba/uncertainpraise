@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-28T15:01:06Z",
+    "AutoApprovalTime": "2017-10-28T15:00:24Z",
+    "AssignmentId": "3TXMY6UCAF1H7CZYE4TZ6HXO3LKCQ9",
+    "WorkerId": "A1NFBKUYYVUYWF",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "3"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "6"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "SP",
+                "OP"
+            ],
+            "curr_teacher": "Jane",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "55"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "English"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "white"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "female"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "Chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "No"
+                    }
+                ]
+            ],
+            "explanation": "Teacher Jane said that all the tracings were good while some were clearly better than others so you don't know if the tracing is really good because Jane didn't discriminate. Teacher Susan was honest so her opinion can be trusted. When she says something is great, it really is great. While she cares for the kids' feelings,  she is honest and lets them know that not all of their work is 'great'.",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Susan_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_OP_Jane",
+            "teacher_order": [
+                "Susan",
+                "Jane"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-28T14:38:57Z",
+    "HITId": "3DA79LNS598308YECD7RUZ8Z0BX3TE",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-28T14:45:24Z"
+}

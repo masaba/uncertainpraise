@@ -1,0 +1,95 @@
+{
+    "ApprovalTime": "2017-10-22T22:59:06Z",
+    "AutoApprovalTime": "2017-10-22T22:58:58Z",
+    "AssignmentId": "3Y4W8Q93L0XJHC1T0ZIKWAEE4RSVDU",
+    "WorkerId": "A1L3937MY09J3I",
+    "answers": {
+        "data": {
+            "memcheck_response": [
+                [
+                    {
+                        "name": "memcheck_Jane",
+                        "value": "3"
+                    }
+                ],
+                [
+                    {
+                        "name": "memcheck_Susan",
+                        "value": "6"
+                    }
+                ]
+            ],
+            "curr_num": "2",
+            "trial_order": [
+                "SP",
+                "OP"
+            ],
+            "curr_teacher": "Susan",
+            "trial_num": [],
+            "memcheck_name": "",
+            "nicer_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane"
+                    }
+                ]
+            ],
+            "demographics": [
+                [
+                    {
+                        "name": "Age",
+                        "value": "34"
+                    },
+                    {
+                        "name": "Language",
+                        "value": "English"
+                    },
+                    {
+                        "name": "Ethnicity",
+                        "value": "white"
+                    },
+                    {
+                        "name": "Gender",
+                        "value": "male"
+                    },
+                    {
+                        "name": "Browser",
+                        "value": "Chrome"
+                    },
+                    {
+                        "name": "Issues",
+                        "value": "no"
+                    }
+                ]
+            ],
+            "explanation": "Jane only stated a tracing was great when it actually was. Susan called of them great. Jane's pick has a higher chance of being good.",
+            "warmup_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "A"
+                    }
+                ]
+            ],
+            "tracing_response": [
+                [
+                    {
+                        "name": "optradio",
+                        "value": "Jane_tracing"
+                    }
+                ]
+            ],
+            "curr_video": "2_OP_Susan",
+            "teacher_order": [
+                "Jane",
+                "Susan"
+            ]
+        }
+    },
+    "AcceptTime": "2017-10-22T22:40:00Z",
+    "HITId": "3UXQ63NLAAZKKQUMIXK6QRWUTLRBL2",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2017-10-22T22:43:58Z"
+}

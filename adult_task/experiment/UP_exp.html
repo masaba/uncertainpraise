@@ -1,0 +1,288 @@
+<!-- ## Introduction -->
+<!-- 
+Mika Asaba
+
+This is code for a replication of Chen et al.'s study, Beliefs About the Causal Structure of the Self-Concept Determine Which Changes Disrupt Personal Identity. 
+ -->
+
+
+<!-- ## Code -->
+
+<html>
+<head>
+	<title>UP Study</title>
+	<!-- Include the [jQuery library](http://jquery.com/), which helps you manipulate HTML elements from JS. -->
+	<script src="jquery-1.11.2.min.js"></script>
+	
+	<!-- Include my library, [mmturkey][mmturkey], which manages submitting data to Mechanical Turk. This defines a global object, <code>turk</code>, and attaches five properties to it, <code>hitId</code>, <code>assignmentId</code>, <code>workerId</code>, <code>previewMode</code>, and <code>turkSubmitTo</code>. It also provides a single method, <code>submit(data)</code>, which you use to submit data to Turk. If no submission URL has been provided (because, e.g. you're testing your code outside of the Turk environment), <code>submit</code> displays what would have been submitted (without, obviously, any Turk-specific variables like <code>workerId</code> and <code>assignmentId</code>).  -->
+	<!-- [mmturkey]: http://github.com/longouyang/mmturkey -->
+	<script src="mmturkey-0.6.js"></script>
+	
+	<!-- Include the cascading style sheet (CSS), which lets us separate style from content. This stylesheet is important because it defines the notion of a **slide** and also makes things look nicer, which subjects appreciate. It's worth looking at the [source code](style.html). -->
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+<!-- INSTRUCTIONS -->
+<div class="slide" id="instructions">
+
+  <div style="width: 500px; margin: 0 auto; text-align: center; background-color: #8C1516; padding: 20px 15px 10px 10px">
+    <img src="images/stanford.png" height="46" width="360" alt="Stanford University">
+  </div>
+
+	<p class="block-text">Welcome to the experiment! In this experiment, you will watch short videos of teachers giving feedback to a student about his tracings and tell us what you think of the teachers.</p>
+
+		<p>Click the button below when you are ready to begin the experiment.</p>	
+
+	<!-- Button to start the experiment. <code>this.blur()</code> removes the focus from the button, if the user pressed the button by using the keyboard, rather than the mouse. -->
+	<button type="button" onclick="this.blur(); experiment.next()">Start</button>
+
+<!--   <button type="button" onclick="this.blur(); getStrengths()">Start</button>
+ -->
+
+	<!-- Legal blurb that we're required to show. -->
+	<p class="block-text" id="legal"> This HIT is part of a scientific research project conducted by the Social Learning Lab at Stanford and has been approved by the IRB of Stanford University. Your decision to complete this HIT is voluntary. We have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available <a href="http://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">here</a>. The results of the research may be presented at scientific meetings or published in scientific journals. Clicking on the 'START' button above indicates that you are at least 18 years of age, and agree to complete this HIT voluntarily.<br><br>
+
+	If you have any questions, concerns, or complaints about this research study, its procedures, risks, and benefits, contact the lab manager, Grace Bennett-Pierre, sll-inquiries-mturk@lists.stanford.edu, or call (650) 498-7832.<br><br>
+
+	If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306.<br><br>
+
+	Protocol approval date: 12/03/14<br>
+	Protocol expiration date: 08/28/17
+
+</p>
+</div>
+
+<!-- WARM UP TRACING EVALUATION -->
+<div class="slide" id="warmup_evaluation">
+
+  <div style="width: 700px; margin: 0 auto; text-align: center; padding: 20px 15px 10px 10px">
+  </div>
+
+<p class="block-text"><center> Here are two tracings. </p>
+
+<center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/good.png" style="width: 100%"><b>Tracing A</b></p>
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/bad.png" style="width: 100%"><b>Tracing B</b></p></center>
+
+<p style="clear: both;">
+
+<p class="block-text"><center>Which tracing is better? </center>
+<form id="warmupForm">
+    <label class="radio-inline">
+      <input type="radio" value="A" name="optradio" >Tracing A
+    </label>
+    <label class="radio-inline">
+      <input type="radio" value="B" name="optradio">Tracing B
+    </label>
+  </form>
+<button type="button" onclick="this.blur(); submitWarmUp(); experiment.next()">Next</button>
+
+</div>
+
+
+
+<!-- INTRODUCTION TO JOHNNY -->
+
+<div class="slide" id="intro">
+  <div style="width: 700px; margin: 0 auto; text-align: center; padding: 20px 15px 10px 10px">
+
+<p> <center>This is Johnny. <br><br>
+<center><img src="http://web.stanford.edu/~masaba/praise/pics/Johnny.jpg" height="200" width="200" alt="Stanford University"></center><br>
+
+Earlier, Johnny was working on his tracings. Johnny really, really wants to know which tracings are good, because he is going to enter one of them into a contest. He showed two teachers, <b>Jane</b> and <b>Susan</b>, what he made. 
+
+<center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Jane.jpg" style="width: 100%"><b>Teacher Jane</b></p>
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Susan.jpg" style="width: 100%"><b>Teacher Susan</b></p></center>
+
+<p style="clear: both;">
+
+<p><center> Let's hear what each teacher said! </center></p>
+
+<button type="button" onclick="this.blur(); experiment.next()">Next</button>
+
+</center>
+</p>
+</div>
+</div>
+
+<div class="slide" id="intro2">
+  <div style="width: 700px; margin: 0 auto; text-align: center; padding: 20px 15px 10px 10px">
+
+<p> <center>This is Johnny. Johnny was working on his tracings today  <b>Jane</b> and <b>Susan</b>. </center></p>
+
+<center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Jane.jpg" style="width: 100%"><b>Teacher Jane</b></p>
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Susan.jpg" style="width: 100%"><b>Teacher Susan</b></p></center>
+
+<p style="clear: both;">
+
+
+<button type="button" onclick="this.blur(); experiment.next()">Next</button>
+
+</center>
+</p>
+</div>
+</div>
+
+<div class="slide" id="test_intro1">
+  <div style="width: 700px; margin: 0 auto; text-align: center; padding: 20px 15px 10px 10px">
+
+<p> <center>Here's a different student, Kristen, who is also working on tracing today. <br><br>
+    <center><img src="http://web.stanford.edu/~masaba/praise/pics/Kristen.jpg" height="200" width="200" alt="Stanford University"></center>
+
+
+<br>She really wants to know which of her tracings are good because she is going to enter one of them into a contest.<br><br><br>
+
+<button type="button" onclick="this.blur(); experiment.next()">Next</button>
+
+</center>
+</p>
+</div>
+</div>
+
+<div class="slide" id="test_intro2">
+  <div style="width: 700px; margin: 0 auto; text-align: center; padding: 20px 15px 10px 10px">
+
+<center><p> Kristen made two tracings. <br>Teacher Jane and Teacher Susan each looked at one tracing and then put them in envelopes. </p></center>
+
+<!-- <center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Jane.jpg" style="width: 100%"><b>Teacher Jane</b></p>
+
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Susan.jpg" style="width: 100%"><b>Teacher Susan</b></p></center>
+
+
+<center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/envelope1.jpg" style="width: 100%"><b>Teacher Jane looked at the tracing in this envelope.</b></p>
+
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/envelope2.jpg" style="width: 100%"><b>Teacher Susan looked at the tracing in this envelope.</b></p></center>
+
+<p style="clear: both;"> -->
+
+<br>
+
+	<button type="button" onclick="this.blur(); experiment.next()">Next</button><br><br>
+
+</p></div></div>
+
+<div class="slide" id="test_final">
+  <div style="width: 700px; margin: 0 auto; text-align: center; padding: 20px 15px 10px 10px">
+
+<br>
+
+<center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Jane.jpg" style="width: 100%"><b>Teacher Jane</b></p>
+
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Susan.jpg" style="width: 100%"><b>Teacher Susan</b></p></center>
+
+
+<center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/EnvelopePicGreenWhite.jpeg" style="width: 100%">Teacher Jane looked at the tracing in this envelope and said that this tracing is great.</p>
+
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/EnvelopePicRedWhite.jpeg" style="width: 100%">Teacher Susan looked at the tracing in this envelope and said that this tracing is great.</p></center>
+
+<p style="clear: both;">
+
+<br>
+<br>
+<center>Now Kristen is going to bring <b>one</b> of her tracings to a contest. <b>Which one should she bring?</b><br>
+
+  <form id="which_tracing">
+    <label class="radio-inline">
+      <input type="radio" name="optradio" value="Jane_tracing">Tracing with green star 
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio" value="Susan_tracing">Tracing with red star
+    </label>
+  </form>
+
+<br>
+Why should she bring that one?<br>
+<input type="text" style="width:400px;" id="explanation" value=""><br>
+
+</p>
+
+	<button type="button" onclick="this.blur(); submitTestQuestion(); experiment.next()">Next</button><br><br>
+
+</div>
+</div>
+
+<div class="slide" id="test_nicer">
+  <div style="width: 700px; margin: 0 auto; text-align: center; padding: 20px 15px 10px 10px">
+
+<br>
+
+<center><p style="float: left; font-size: 12pt; text-align: center; width: 30%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Jane.jpg" style="width: 100%"><b>Teacher Jane</b></p>
+
+
+<p style="float: right; font-size: 12pt; text-align: center; width: 30%; margin-right: 10%; margin-bottom: 0.5em;"><img src="http://web.stanford.edu/~masaba/praise/pics/Susan.jpg" style="width: 100%"><b>Teacher Susan</b></p></center>
+
+<p style="clear: both;">
+
+<center>One of the teachers wanted to be nice. Who was trying to be nice?</b><br>
+
+  <form id="whos_nicer">
+    <label class="radio-inline">
+      <input type="radio" name="optradio" value="Jane">Jane
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="optradio" value="Susan">Susan
+    </label>
+  </form>
+
+<br>
+</p>
+
+	<button type="button" onclick="this.blur(); submitNicer(); experiment.next()">Next</button><br><br>
+
+</div>
+</div>
+
+<div class="slide" id="demographics">
+  <div style="width: 700px; margin: 0 auto; text-align: left; padding: 20px 15px 10px 10px">
+
+	<p>Finally, we have a few demographic questions for you.</p>
+	<form onSubmit="submitDemographics();" id="demographicsForm" >
+How old are you?: <input type="text" name="Age" value=""><br>
+What is your native/first language?: <input type="text" name="Language" value=""><br>
+What is your ethnicity?: <select name="Ethnicity">
+	<option value="noresponse">No Response </option>
+    <option value="white">White</option>
+    <option value="hispanic">Hispanic or Latino</option>
+    <option value="asian">Asian/Pacific Islander</option>
+    <option value="black">Black or African American</option>
+	<option value="native">Native American</option>
+    <option value="other">Other</option>
+	</select>
+	<br><br>
+What is your gender?: <select name="Gender">
+	<option value="noresponse">No Response </option>
+	<option value="male">Male</option>
+    <option value="female">Female</option>
+	<option value="other">Other</option>
+	</select>
+<br><br>
+Which browser were you using?: <input type="text" name="Browser" value=""></br><br>
+
+Did you run into any issues?: <input type="text" name="Issues" value=""><br><br>
+
+	<button type="button" onclick="submitDemographics();">Submit</button>
+  </form>
+</div>
+</div>     
+
+<!-- The finish slide. -->
+<div class="slide" id="finished">
+	You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+
+<!-- Include the <a href="experiment.html">JavaScript file for the experiment</a>. As written, that script immediately executes commands, so we include it here at the end of the HTML file to ensure that resources referenced by the script actually exist. For instance, one of the immediately executed commands is <code>showSlide("instructions")</code>. If we loaded experiment.js, say, in the <code>head</code> section, <code>showSlide("instructions")</code> would fail because the <code>instructions</code> slide doesn't exist yet. It is possible to load the script in <code>head</code> but you have to ensure that any immediately executed commands, if they rely on potentially uninitialized HTML elements, are _delayed_ until the page is ready, using either [window.onload][onload] or jQuery's more robust [$(document).ready()][domReady]  -->
+<!-- [onload]: https://developer.mozilla.org/en/DOM/window.onload -->
+<!-- [domReady]: http://api.jquery.com/ready/ -->
+<script src="UP_exp.js"></script>
+
+</body>
+</html>
+
