@@ -25,9 +25,6 @@ knitr::opts_chunk$set(fig.width=3, fig.height=3, fig.crop = F, fig.pos = "tb", f
 ```
 
 ```{r, libraries}
-#install.packages("devtools")
-#devtools::install_github("langcog/langcog")
-
 library(png)
 library(grid)
 library(ggplot2)
@@ -182,14 +179,14 @@ adult.binom.tracing <- binom.test(adult.n$tracing.n,adult.n$total.n)
 #Nicer question
 adult.binom.nicer <- binom.test(adult.n$nicer.n, adult.n$total.n)
 
-e1.plot = ggplot(adult.table, aes(question, mean)) +
+e1.plot = ggplot(adult.table, aes(question, mean, fill = question)) +
   geom_bar(stat = "identity", width = .5) +
   ylim(0,1) +
   ggtitle("Experiment 1: Adults") +
   theme(plot.title = element_text(hjust=0.5, size=12),
         text = element_text(size=12),
         axis.title.x=element_blank()) +
-  guides(fill=guide_legend(title="Choice"))+
+  guides(fill=FALSE) + 
   geom_linerange(data = adult.table, mapping=aes(x=question, ymin = ci_lower, ymax=ci_upper))+
   geom_hline(yintercept=.5, linetype="dotted") +
   ggthemes::theme_few() +
@@ -266,21 +263,32 @@ After children watched the videos of the teachers and responded to the memory ch
 
 ```{r}
 #get means and CIs for plots
-contest_ms <- d_filt_e2 %>%
+
+e2.tracing <- d_filt_e2 %>%
   group_by(include) %>%
-  multi_boot_standard(col = "tracing_selective")
+  multi_boot_standard(col = "tracing_selective") %>%
+  mutate(question = "Better tracing?")
 
-contest_ms_age <- d_filt_e2 %>%
-  group_by(age_bin) %>%
-  multi_boot_standard(col = "tracing_selective")
-
-nicer_ms <- d_filt_e2 %>%
+e2.nicer <- d_filt_e2 %>%
   group_by(include) %>%
-  multi_boot_standard(col = "nice_selective")
+  multi_boot_standard(col = "nice_selective") %>%
+  mutate(question = "Nicer teacher?")
 
-nicer_ms_age <- d_filt_e2 %>%
-  group_by(age_bin) %>%
-  multi_boot_standard(col = "nice_selective")
+e2.table = full_join(e2.tracing, e2.nicer)
+
+e2.plot = ggplot(e2.table, aes(question, mean, fill = question)) +
+  geom_bar(stat = "identity", width = .5) +
+  ylim(0,1) +
+  ggtitle("Experiment 2: 4-5 year-olds") +
+  theme(plot.title = element_text(hjust=0.5, size=12),
+        text = element_text(size=12),
+        axis.title.x=element_blank()) +
+  guides(fill=FALSE) + 
+  geom_linerange(data = e2.table, mapping=aes(x=question, ymin = ci_lower, ymax=ci_upper))+
+  geom_hline(yintercept=.5, linetype="dotted") +
+  ggthemes::theme_few() +
+  langcog::scale_colour_solarized() +
+  labs(x = "Question", y = "Proportion Choosing Contingent Praiser")
 ```
 
 ```{r}
@@ -299,81 +307,10 @@ e2_agereg = summary(glmer(tracing_selective ~ age + condition +
                family = "binomial"))
 ```
 
-```{r results_adult, fig.env='figure*', fig.align='center',fig.width=7,fig.height=2, fig.pos='h',num.cols.cap=1, fig.cap='Results of Experiment 1, 2, and 3.'}
-
-img <- png::readPNG("figs/fig2.png")
-grid::grid.raster(img)
-
-# old caption text
-# Adults were asked to guess which of two tracings was likely to be better: one praised by a teacher who had previously praised only good tracings or one praised by a teacher who had previously praised all tracings regardless of quality. They were then asked which teacher was trying to be nicer.
-
-# e1.plot = ggplot(adult.table, aes(question, mean)) +
-#   geom_bar(stat = "identity", width = 1) +
-#   ylim(0,1) +
-#   ggtitle("Experiment 1: Adults") +
-#   theme(plot.title = element_text(hjust=0.5, size=12),
-#         text = element_text(size=12),
-#         axis.title.x=element_blank()) +
-#   guides(fill=guide_legend(title="Choice"))+
-#   geom_linerange(data = adult.table, mapping=aes(x=question, ymin = ci_lower, ymax=ci_upper))+
-#   geom_hline(yintercept=.5, linetype="dotted") +
-#   ggthemes::theme_few() +
-#   langcog::scale_colour_solarized() +
-#   labs(x = "Question", y = "Proportion Choosing Accurate Praiser")
-# 
-# e1.plot = ggplot(adult.tracing, aes(x = age_bin, y = mean)) +
-#   geom_bar(stat = "identity", width = .25) +
-#   ylim(0,1) +
-#   ggtitle("Experiment 1") +
-#   theme(plot.title = element_text(hjust=0.5, size=12),
-#         text = element_text(size=12),
-#         axis.title.x=element_blank()) +
-#   guides(fill=guide_legend(title="Choice"))+
-#   geom_linerange(data = adult.tracing, mapping=aes(x=age_bin, ymin = ci_lower, ymax=ci_upper))+
-#   geom_hline(yintercept=.5, linetype="dotted") +
-#   ggthemes::theme_few() +
-#   langcog::scale_colour_solarized() +
-#   labs(x = "", y = "Proportion Choosing Accurate Praiser")
-# 
-# e2.plot = ggplot(contest_ms_age, aes(x = age_bin, y = mean)) +
-#   geom_bar(stat="identity", width=.5) +
-#   ggtitle("Experiment 2") +
-#   theme(plot.title = element_text(hjust=0.5, size=12),
-#         text = element_text(size=12),
-#         axis.title.x=element_blank(),
-#         axis.title.y =element_blank()) +
-#   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper),
-#              position = position_dodge(width = .5))+
-#   langcog::scale_colour_solarized() +
-#   ggthemes::theme_few() +
-#   ylim(0,1) + 
-#   geom_hline(yintercept=.5, linetype="dotted") +
-#   theme(legend.position = "none") +
-#   labs(x = "", y = "")
-# 
-# 
-# e3.plot = ggplot(contest_ms_age, aes(x = age_bin, y = mean)) +
-#   geom_bar(stat="identity", width=.5) +
-#   ggtitle("Exp. 3 Filler") +
-#   theme(plot.title = element_text(hjust=0.5, size=12),
-#         text = element_text(size=12),
-#         axis.title.y =element_blank()) +
-#   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper),
-#              position = position_dodge(width = .5))+
-#   langcog::scale_colour_solarized() +
-#   ggthemes::theme_few() +
-#   ylim(0,1) + 
-#   geom_hline(yintercept=.5, linetype="dotted") +
-#   theme(legend.position = "none") +
-#   labs(x = "", y = "")
-
-#multiplot(e1.plot,e2.plot,e3.plot, cols=3)
-```
-
 ##Results and Discussion
 Only children who passed the initial evaluation questions and the memory check questions for each teacher video after the first or second attempt were included in the following analyses. Our main question was which tracing children thought was better: the tracing praised by the Overpraise Teacher or the tracing praised by the Contingent Teacher. Since children could not see which of their tracings was in each envelope, the teachers' praise was the only criteria available to children to evaluate which of their tracings was better.
 
-We found that children were significantly more likely to choose the drawing that had been praised by the Contingent Praise Teacher (`r round(contest_ms$mean[1]*100,2)`\%, $p$ = `r round(binom_contest$p.value,3)`). Children's age did not predict their preference for the Contingent Praise Teacher ($B$ = `r round(e2_agereg$coefficients[2],3)`, $z$ = `r round(e2_agereg$coefficients[5],3)`, $p$ = `r round(e2_agereg$coefficients[11],3)`).
+We found that children were significantly more likely to choose the drawing that had been praised by the Contingent Praise Teacher (`r round(e2.table$mean[1]*100,2)`\%, $p$ = `r round(binom_contest$p.value,3)`). Children's age did not predict their preference for the Contingent Praise Teacher ($B$ = `r round(e2_agereg$coefficients[2],3)`, $z$ = `r round(e2_agereg$coefficients[5],3)`, $p$ = `r round(e2_agereg$coefficients[11],3)`).
 
 Thus, even preschool-aged children appear to be sensitive to the informativity of praise based on whether the agent has a history of contingent praise or not. Importantly, this means that the majority of children were able to override any positivity bias and avoid selecting the drawing associated with the Overpraise teacher, who might have been perceived as more nice or likeable.
 
@@ -414,14 +351,37 @@ The procedure was identical to Experiment 2. As in Experiment 2, the order of th
 ##Results and Discussion
 
 ```{r}
-#get means and CIs for plots
-# contest_ms <- d_filt_e3 %>%
-#   group_by(include) %>%
-#   multi_boot_standard(col = "tracing_selective")
-# 
-# contest_ms_age <- d_filt_e3 %>%
-#   group_by(age_bin) %>%
-#   multi_boot_standard(col = "tracing_selective")
+e3.tracing <- d_filt_e3 %>%
+  group_by(include) %>%
+  multi_boot_standard(col = "tracing_selective") %>%
+  mutate(question = "Better tracing?")
+
+e3.nicer <- d_filt_e3 %>%
+  group_by(include) %>%
+  multi_boot_standard(col = "nice_selective") %>%
+  mutate(question = "Nicer teacher?")
+
+e3.table = full_join(e3.tracing, e3.nicer)
+
+e3.plot = ggplot(e3.table, aes(question, mean, fill = question)) +
+  geom_bar(stat = "identity", width = .5) +
+  ylim(0,1) +
+  ggtitle("Experiment 3: 4 year-olds") +
+  theme(plot.title = element_text(hjust=0.5, size=12),
+        text = element_text(size=12),
+        axis.title.x=element_blank()) +
+  guides(fill=FALSE) + 
+  geom_linerange(data = e3.table, mapping=aes(x=question, ymin = ci_lower, ymax=ci_upper))+
+  geom_hline(yintercept=.5, linetype="dotted") +
+  ggthemes::theme_few() +
+  langcog::scale_colour_solarized() +
+  scale_fill_grey() +
+  labs(x = "Question", y = "Proportion Choosing Contingent Praiser")
+```
+
+```{r results_adult, fig.env='figure*', fig.align='center',fig.width=7,fig.height=3, fig.pos='h',num.cols.cap=1, fig.cap='Results of Experiment 1, 2, and 3.'}
+img <- png::readPNG("figs/fig2_color.png")
+grid::grid.raster(img)
 ```
 
 Our main question was whether children are sensitive to the contingency of praise on products of better quality, controlling for the frequency of praise. 
