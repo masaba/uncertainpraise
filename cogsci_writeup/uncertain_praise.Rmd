@@ -3,19 +3,18 @@ title: "Did I really do well? Young children are sensitive to the informativenes
 bibliography: library.bib
 csl: apa6.csl
 document-params: "10pt, letterpaper"
-
 author-information: >
     \author{{\large \bf Mika Asaba},  {\large \bf Emily Hembacher}, {\large \bf Helen Qiu},
     {\large \bf Brett Anderson}, {\large \bf Michael Frank}, {\large \bf Hyowon Gweon}
     \\ Department of Psychology, Stanford University}
-
 abstract: 
     "Young children constantly receive praise about their abilities, skills, and products. While much work has been devoted to how praise influences children's motivation and self-esteem, an open question is how children evaluate praise from others and use it to assess their own work. Given young children's ability to track informant's accuracy and selectively trust those who are more reliable, we examine their ability to monitor the informativeness of others' praise. In particular, this work investigates whether young children weight evaluations from a teacher who provides praise with respect to the quality of a piece of work higher than evaluations from a teacher who always provide praise. We show that a dults (Experiment 1) and even 4-5 year-olds (Experiment 2) show sensitivity to the difference in informativeness between these two teachers, even when controlling for the frequency of praise (Experiment 3). These findings provide evidence that from a young age, children can selectively use others' praise to evaluate their own work."
-
 keywords:
     "praise, theory of mind, uncertainty"
     
 output: cogsci2016::cogsci_paper
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r global_options, include=FALSE}
@@ -32,6 +31,9 @@ library(xtable)
 library(tidyverse)
 library(langcog)
 library(lme4)
+library(stringr)
+library(magrittr)
+library(viridis)
 ```
 
 ```{r,echo=FALSE}
@@ -75,7 +77,7 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 }
 ```
 
-Imagine that you just gave a presentation but you are not certain how well you did. You ask your friends, Tim and Sam, what they think. Whereas Tim usually provides positive feedback to everyone regardless of how well they actually performed, Sam tends to provide more helpful, honest feedback. Given these different patterns of evaluations, you might use Sam's evaluation to actually learn about the quality of your presentation. As adults, we intuitively understand that others' feedback can be differentially informative depending on the evaluator's expertise, commmunicative goal, or sincerity, and we can take these factors into consideration when interpreting others' evaluations of us. These abilities might be especially critical for young children who are attempting to learn about their skills, abilities, and weaknesses amidst a flood of constant praise and feedback from others. 
+Imagine that you just gave a presentation and you are uncertain of how well you did, so you ask your friends, Tim and Sam, for their opinions. While Tim usually provides positive feedback to everyone regardless of how well they actually performed, Sam tends to provide more helpful, honest feedback. Given these different patterns of evaluations, you might use Sam's evaluation to actually learn about the quality of your presentation. As adults, we intuitively understand that others' feedback can be differentially informative depending on the evaluator's expertise, commmunicative goal, or sincerity, and we can take these factors into consideration when interpreting others' evaluations of us. These abilities might be especially critical for young children who are attempting to learn about their skills, abilities, and weaknesses amidst a flood of constant praise and feedback from others. 
 
 Performance praise -- positive evaluations of a person's performances or attributes [see @kanouse1981semantics] -- has become ubiquitous in parenting and education practices in Western societies. Praise can influence children's intrinsic motivation and subsquent learning behaviors [see @henderlong2002effects for a review], and children appear to be able to differentiate between praise that is inflated or not [@brummelman2014s], or praise that is directed at an inherent ability versus at the effort involved in pursuing a task [@kamins1999person]. However, one open question is whether young children can reason about the \textit{informativeness} of others' praise, or the reliable contingency of praise on the quality of a product. Further, can they use others' informativeness to selectively assess their own work?
 
@@ -83,8 +85,6 @@ Performance praise -- positive evaluations of a person's performances or attribu
 
 
 <!-- In the current work, we examine whether young children share these intuitions, in particular whether they can (1) track the informativeness of others' praise from prior observations and (2) how they use might others' informativeness to appropriately evaluate their own work. -->
-
-
 
 
 <!-- In order to make appropriate inferences about their abilities and products, children must learn to figure out when praise is meaningful and when it should be discounted. Here, we examine children's sensitivity to the \textit{informativeness} of praise and if so, whether children are strategic in how they use praise to assess their own work. -->
@@ -101,18 +101,28 @@ Performance praise -- positive evaluations of a person's performances or attribu
 <!-- Main question + children's sensitivity to sincerity -->
 
 <!-- Selective trust -->
-In fact, young children are quite savvy in judging the information that others provide, at least when it comes to information about the physical world (e.g., the names or locations of objects, or how a toy works). By the preschool years, children can track the accuracy of others' testimony (e.g., whether they provide correct or incorrect labels of common household objects), prefer to learn from those who previously provided accurate labels [@koenig2004trust, @birch2008three, @harris2011young], and can continually update their evaluations of others' trustworthiness across multiple interactions [@ronfard2017preschoolers]. Furthermore, children are not only able to make evaluations based on the accuracy of others' verbal testimony, but also the informativeness of others' pedagogical demonstrations. Even 4 year-old children negatively evaluate teachers who leave out relevant information [@gweon2017order] or provide unnecessary information [@gweon2014children].
+In fact, young children are quite savvy in judging the information that others provide, at least when it comes to information about the physical world (e.g., the names or locations of objects, or how a toy works). By the preschool years, children can track the accuracy of others' testimony (e.g., whether they provide correct or incorrect labels of common household objects), prefer to learn from those who previously provided accurate labels [@koenig2004trust, birch2008three, harris2011young], and can continually update their evaluations of others' trustworthiness across multiple interactions [@ronfard2017preschoolers]. Furthermore, children are not only able to make evaluations based on the accuracy of others' verbal testimony, but also the informativeness of others' pedagogical demonstrations. Even 4 year-old children negatively evaluate teachers who leave out relevant information [@gweon2017order] or provide unnecessary information [@gweon2014children].
 
 <!-- add transition in here -->
 Although children appear to be competent in evaluating informants in the physical domain, there are a few reasons that they might struggle with evaluating others' praise for the self. First, children may hold strong beliefs about their own competence, which may interfere with their ability to integrate social information into their self-perceptions. Young children tend to overestimate their performance, predicting that they will perform better in the future than they are able to [@schneider1998performance], and judging that they have performed well when they have not [@hembacher2014don]. This positivity bias or “wishful thinking” towards their own abilities may undermine their ability to evaluate the informativity of feedback and use it to understand their own performance.
 
 Second, recent work has revealed that young children are biased to trust testimony from more positive sources, irrespective of the informativeness of the evaluation. Preschool children trust novel information from more physically attractive [@bascandziev2014beauty] and nicer informants [@johnston2015children], even when these informants lack expertise or perceptual access [@lane2013informants]. Young children are also more likely to endorse reliable speakers who make positive attributions [e.g., remarking that a character is "nice" versus "mean"; @boseovski2012trust]. Further, even 6-8 year-olds are more willing to endore and learn from informants who make positive evaluations of a student's product (describing a painting or piece of music as "very good" versus "very bad") independently of the speaker's expertise in that domain [describing a painting @boseovski2017role].
 
+<!-- shorten this paragraph -->
 This work on children's positivity bias in the selective trust literature has largely pitted an informant's valence (positive qualities or positive information) against her expertise or the consensus of a group. In these studies, children did not have access to information about the target agent or agent's product so they were unable to evaluate whether the speaker's evaluation was appropriate or not. However, even infants make appropriate social evaluations [e.g., @hamlin2007social] and preschool-aged children can differentiate amongst qualities of others' products to make inferences about their own abilities [seeing that others have created better or worse tracings than their own; @magid2015quit]. So, to the extent that children themselves can evaluate a product, they might be sensitive to the contingency of a speaker's evaluation on the subjective quality of the product and use this to judge the informational value of a speaker's praise.
 
-The present work asks whether young children can track the informativeness of others' praise by observing others' evaluations of another child, and if so, whether they can then use others' informativeness to appropriately evaluate their own work. We chose a task that preschool-aged children are familiar with but motivated to improve on: tracing shapes with a pen. Experiment 1 confirms that adults can differentiate between a teacher who always provides praise (Overpraise Teacher) and teacher who only praises the better tracings (Selective Teacher); they can use teachers' prior informativeness to appropriately evaluate which of two hidden tracings is better. In a similar, first-person paradigm, experiment 2 demonstrates that even 4- and 5-year-olds can differentiate between these two types of teachers and endorse the Selective Teacher's praise. Experiment 3 controls for the frequency of praise provided by each teacher by pitting the Selective Teacher against a teacher who only provides praise to the worse tracings (Selective-Reverse Teacher). 
+The present work asks whether young children can track the informativeness of others' praise by observing others' evaluations of another child, and if so, whether they can then use others' informativeness to appropriately evaluate their own work. We chose a task that preschool-aged children are familiar with but motivated to improve on: tracing shapes with a pen. Experiment 1 confirms that adults can differentiate between a teacher who always provides praise (Overpraise Teacher) and a  teacher who only praises the better tracings (Selective Teacher); they can use teachers' prior informativeness to appropriately evaluate which of two hidden tracings is better. In a similar, first-person paradigm, experiment 2 demonstrates that even 4- and 5-year-olds can differentiate between these two types of teachers and endorse the Selective Teacher's praise. Experiment 3 controls for the frequency of praise provided by each teacher by pitting the Selective Teacher against a teacher who only provides praise to the worse tracings (Selective-Reverse Teacher). 
+
+```{r methods, fig.env = "figure*", fig.pos = "h", fig.align='center', fig.width=7, fig.height=7, set.cap.width=T, num.cols.cap=2, fig.cap = "(A) Examples of good and bad tracings that subjects saw in the warm-up evaluation questions and teacher videos for Experiments 1-3. (B) Procedures in Experiment 2. Experiment 3 Procedures were identical, except the Overpraise Teacher was replaced with the Selective-Reverse Teacher."}
+img <- png::readPNG("figs/methods2.png")
+grid::grid.raster(img)
+```
 
 #Experiment 1: Adults
+
+We began by investigating adults' ability to track different agents' histories of praise and make inferences about the informativeness of each agent's subsequent praise, as a baseline for estimating these capacities in young children. To this end, we had adult participants watch videos of two teachers giving feedback to the same child about tracings he had completed. One of the teachers gave selective praise, only praising the objectively good tracings, and the other teacher gave indiscriminate overpraise, praising both the good and bad tracings. We then asked participants to decide which of two unseen tracings was likely better, one praised by the teacher with a history of selective praise, or the one with a history of overpraise. 
+
+We predicted that adults would treat praise from a teacher with a history of selective praise as more informative than praise from a teacher with a history of overpraise, and select the former tracing as more likely to be better. As an exploratory measure, we also asked adults which of these individuals was trying to be nice. We predicted that the agent providing overpraise would be perceived as trying to be nicer, although an agent providing more accurate feedback could also be perceived as more helpful, and therefore nicer.
 
 ##Methods
 
@@ -132,30 +142,25 @@ adult.dems <- d_filt_adult %>%
             female_count = sum(gender))
 ```
 
-`r adult.dems$n` adults (`r adult.dems$female_count` female, $M_{Age}$(SD) = `r round(adult.dems$mean.age, 2)` (`r round(adult.dems$sd.age, 2)`, Range = `r adult.dems$min.age` - `r adult.dems$max.age`)) were recruited from Amazon Mechanical Turk. An additional 14 subjects were recruited but excluded due to failure on one or both memory check questions (see Procedures below).
+`r adult.dems$n` adults (`r adult.dems$female_count` female, $M_{Age}$(SD) = `r round(adult.dems$mean.age, 2)` (`r round(adult.dems$sd.age, 2)`), range = `r adult.dems$min.age` - `r adult.dems$max.age`) were recruited from Amazon Mechanical Turk. An additional 14 subjects were recruited but excluded because they failed one or both memory check questions (see Procedures below).
 
-###Stimuli
+###Stimuli 
 
-For the warm-up evaluation question, subjects first saw one really good tracing and one really bad tracing of simple shapes made with a blue marker. Subjects watched two videos: the Selective Teacher video and the Overpraise Teacher video. 
+Stimuli included images of tracings and videos of teacher-student interactions. Participants were shown two tracings to establish that they could accurately judge the quality of tracings in an initial evaluation question. One tracing was clearly good (i.e., the marker followed the template lines closely) and the other was clearly bad (Figure \ref{fig:methods}a). 
 
-In each video, the teacher (Jane or Susan; actor counterbalanced) was facing the camera on one side of the table and "Johnny", a child actor, was sitting with his back facing the camera. There were six tracings on the table in a row (three really good tracings and three really bad tracings); the good and bad tracings were equivalent in quality to the good and bad tracings shown in the warm-up evaluation question. At the start of the video, Johnny told the teacher that he made the tracings on the table and that he wants to know which tracings are good because he's going to enter one of them into a contest. The teachers evaluated the tracings one at a time from right to left: in the Overpraise Teacher video, the teacher provided positive, undifferentiated feedback ("Wow, that's great!") for all six tracings and put a sticker on each tracing. In the Selective Teacher video, the teacher provided positive feedback ("Wow, that's great!") and put stickers on the three good tracings and neutral feedback ("Hm, this one's okay!", said in a positive tone) for the three bad tracings. The quality of tracings alternated from right to left (good, bad, etc.).
+Participants also saw two videos in which a child received feedback about his tracings from different teachers (Figure \ref{fig:methods}b). In each video, the teacher ("Teacher Jane" or "Teacher Susan"; actor counterbalanced) was facing the camera on one side of the table and "Johnny", a child, was sitting with his back facing the camera. There were six tracings in a row on the table (three good tracings and three bad tracings, in alternating order). The good and bad tracings were equivalent in quality to the good and bad tracings shown in the initial evaluation question. 
+
+At the start of the video, Johnny tells the teacher that he made the tracings and wants to know which tracings are good. Then, the teachers evaluate the tracings one at a time from right to left: in the Overpraise Teacher video, the teacher provides positive, undifferentiated feedback ("Wow, that's great!") for all six tracings and puts a colored star sticker on each tracing. The color of the star sticker matches the color of the teacher's shirt (red or green). In the Selective Teacher video, the teacher only provides positive feedback ("Wow, that's great!") and puts stickers on the good tracings. She gives neutral feedback ("Hm, this one's okay!") for the three bad tracings. Both teachers maintained a positive tone for both types of feedback.
 
 ###Procedure
 
-Adults were first shown two tracings that differed in quality (see Stimuli section) and were asked to evaluate which of two tracings is better; only subjects who chose the better tracing were included in analyses. 
+Adults were first shown two tracings that differed in quality (see Stimuli section) and were asked to evaluate which of two tracings was better. Only participants who chose the better tracing were included in analyses. 
 
-Next, subjects were introduced to a student, Johnny, who really wants to know which of his tracings are good because he's going to enter one of them into a contest. Then, subjects watched videos of the Selective Teacher and Overpraise Teacher (video order counterbalanced) providing feedback to Johnny about his tracings; each teacher provided feedback on a different set of six tracings. After each video, subjects were asked a memory check about how many tracings the teacher said were great and only subjects who answered this correctly ("3" for the Selective Teacher and "6" for the Overpraise Teacher were included in analyses. 
+Next, participants were shown a picture of a child, Johnny, and were told that he wanted to know which of his tracings were good because he was going to enter one of them into a contest. Then, participants watched videos of the Selective Teacher and Overpraise Teacher (video order counterbalanced). After each video, as a memory check, participants were asked how many tracings the teacher said were great. Only subjects who answered this correctly ("3" for the Selective Teacher and "6" for the Overpraise Teacher) were included in analyses. 
 
-```{r image, fig.env = "figure*", fig.pos = "h", fig.align='center', fig.width=7, fig.height=7, set.cap.width=T, num.cols.cap=2, fig.cap = "(A) Examples of good and bad tracings that subjects saw in the warm-up evaluation questions and teacher videos for Experiments 1-3. (B) Procedures in Experiment 2. Experiment 3 Procedures were identical, except the Overpraise Teacher was replaced with the Selective-Reverse Teacher."}
-img <- png::readPNG("figs/methods2.png")
-grid::grid.raster(img)
-```
+After watching the videos, participants were shown a picture of Kristen, another student who was working on two tracings and also wanted to enter one of them into a contest. They were shown two envelopes and told that each envelope contained one of Kristen's drawings. Participants were told that the Selective Teacher saw only one of the tracings and praised it (e.g., "Teacher Jane said this tracing is great"), and the Overpraise Teacher saw only the other tracing and praised it ("Teacher Susan said this tracing is great"). Participants never saw Kristen's actually tracings, only the envelopes with the corresponding stickers on them.
 
-After watching the videos, subjects were introduced to Kristen, another student who was working on two tracings and wants to enter one of them into a contest. Kristen received praise on one tracing ("Teacher Jane said this is great") from the Selective Teacher and praise on another tracing ("Teacher Susan said this is great") from the Overpraise Teacher. Subjects were not given access to the tracings themselves but only saw an envelope (presumably holding a tracing) with Teacher Jane's green star and an envelope with Teacher Susan's red star.
-
-Finally, subjects were asked the critical question: "Now Kristen is going to bring one of her tracings to a contest. Which tracing should she bring?" Then, subjects were asked which teacher wanted to be nice: "One of the teachers wanted to be nice. Who was trying to be nice?" 
-
-<!-- need to provide a reason why we want to include a question about niceness... -->
+Finally, participants were asked the critical question: "Now Kristen is going to bring one of her tracings to a contest. Which tracing should she bring?" Then, as an exploratory measure, participants were asked  "One of the teachers wanted to be nice. Who was trying to be nice?" 
 
 ##Results and Discussion
 
@@ -173,6 +178,53 @@ adult.nicer <- d_filt_adult %>%
   mutate(question = "Nicer teacher?")
 
 adult.table = full_join(adult.tracing, adult.nicer)
+```
+
+```{r}
+#results plot
+load("data/d_filt_e2.RData")
+load("data/d_filt_e3.RData")
+
+e1_data_plot <- d_filt_adult %>%
+  transmute(id = id,
+            tracing_selective = tracing_choseContingent,
+            experiment = "E1: Adults")
+  
+e2_data_plot <- d_filt_e2 %>%
+  transmute(id = sid,
+            tracing_selective = tracing_selective,
+            experiment = "E2: 4 & 5 yrs")
+
+e3_data_plot <- d_filt_e3 %>%
+  transmute(id = sid,
+            tracing_selective = tracing_selective,
+            experiment = "E3: 4 yrs")
+
+full_data <- bind_rows(e1_data_plot, e2_data_plot)%>%
+  bind_rows(e3_data_plot)
+
+full_data_plot <- full_data %>%
+  group_by(experiment) %>%
+  multi_boot_standard(col = "tracing_selective")
+```
+
+```{r results, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=7.5, fig.height=5, out.width="3in", out.height="2in", set.cap.width=T, num.cols.cap=1, fig.cap = 'Results of Experiments 1-3: Proportion of participants choosing the tracing praised by the selective praiser. In Experiments 1 and 2, participants chose between Selective and Overpraise Teachers, and in Experiment 3, participants chose between Selective and Selective-Reversed Teachers. Error bars are 95 percent confidence intervals.'}
+
+ggplot(full_data_plot, aes(x = experiment, y = mean, fill = experiment)) +
+  geom_bar(stat="identity", width=.5) +
+  geom_linerange(aes(ymin = ci_lower, ymax = ci_upper),
+             position = position_dodge(width = .5))+
+  ylab("Tracing Praised by Selective Praiser") +
+  scale_fill_viridis(discrete = TRUE) +   
+  ggthemes::theme_few() + 
+  ylim(0,1) +
+  ggtitle("Which tracing is better?")+ 
+  theme(axis.title.x=element_blank(),
+        title = element_text(vjust=0.5, size=22),
+        legend.position="none",
+        axis.text.x  = element_text(vjust=0.5, size=20),
+        axis.text.y  = element_text(vjust=0.5, size=20),
+        axis.title.y = element_text(size=20))
 ```
 
 ```{r}
@@ -204,17 +256,11 @@ e1.plot = ggplot(adult.table, aes(question, mean, fill = question)) +
 ```
 
 <!-- Mika -- need to check order of teachers and actor type for any effect.. -->
-Our main question was whether subjects would use the teachers' prior feedback to evaluate their feedback on the hidden tracings. Even though each teacher provided identical evaluations on the tracings, subjects overwhelmingly chose the tracing praised by the Selective Teacher (`r round(adult.table$mean[1]*100,2)`\%, $p$ < .001, Binomial Test). Further, subjects agreed that the Overpraise Teacher was *trying* to be nice (`r 100-(round(adult.table$mean[2]*100, 2))`\%, $p$ < .001, Binomial Test), suggesting that subjects did not have an overall preference for the Selective Teacher.
-
-Adults can distinguish between a teacher who always provides positive feedback (Overpraise Teacher) versus a teacher who provides feedback contingent on the quality of work (Selective Teacher). These results suggest that adults are sensitive to the informativeness of others' feedback: given observations of others' prior feedback, they can differentially evaluate subsequent, identical feedback. Moreover, this capacity to differentiate between teachers based on their prior informativeness lead subjects to then judge which of two tracings were better (without actually having seen the tracing).
-
-<!-- If you want to refer to the figure in text, you can do it like this: Figure \ref{fig:results_e1}. -->
+Our primary question was whether adults use teachers' prior patterns of praise to evaluate the informativeness of subsequent praise. Although each teacher provided identical evaluations of the tracings, subjects overwhelmingly chose the tracing praised by the Selective Teacher (`r round(adult.table$mean[1]*100,2)`\%, $p$ < .001, Binomial Test; Figure \ref{fig:results}). Further, subjects agreed that the Overpraise Teacher was *trying* to be nice (`r 100-(round(adult.table$mean[2]*100, 2))`\%, $p$ < .001, Binomial Test), suggesting that adults infer niceness as a communicative goal from this pattern of undifferentiated praise. These results confirm our prediction that adults are sensitive to the informativeness of others' feedback: given observations of others' prior feedback, they can evaluate the differential informativeness of subsequent feedback and use it to judge the likely quality of an unseen product. 
 
 #Experiment 2
 
-In Experiment 2, children themselves completed two tracings, and then watched the same videos as in Experiment 1. Children were then told that one of their own tracings had been praised by the Selective Teacher, and one had been praised by the Overpraise Teacher. Children were asked to decide which of their tracings was better based on the feedback from the teachers. We predicted that if children were sensitive to the informativeness of praise based on each teacher's history, children should weight the Selective Teacher's praise more heavily, and select the tracing praised by her. On the other hand, if children prefer to accept information from agents they perceive as positive or friendly, they might prefer the Overpraise Teacher. Finally, if children are not sensitive to the relative informativness of praise, they might choose a tracing at random.
-
-This experiment was preregistered in October 2017; the form can be found here: https://aspredicted.org/4r9dh.pdf. 
+Experiment 2 was designed to assess whether preschool-aged children can also assess the informativeness of praise based on individuals' histories of praise. The design was similar to Experiment 1, except that children themselves completed two tracings. They then watched the same videos as in Experiment 1. Children were then told that one of their own tracings had been praised by the Selective Teacher, and one had been praised by the Overpraise Teacher. Children were asked to decide which of their tracings was better based on the feedback from the teachers. We predicted that if children were sensitive to the informativeness of praise based on each teacher's history, children should weight the Selective Teacher's praise more heavily, and select the tracing praised by her. On the other hand, if children prefer to accept information from agents they perceive as positive or friendly, they might prefer the Overpraise Teacher. Finally, if children are not sensitive to the relative informativness of praise, they might choose a tracing at random. Similar to Experiment 1, we also assessed which teacher children thought was trying to be nicer.
 
 ```{r}
 load("data/d_filt_e2.RData")
@@ -233,42 +279,25 @@ e2.dems <- d_filt_e2 %>%
 ##Methods
 
 ### Participants
-`r e2.dems$n` four- and five-year-olds (`r e2.dems$female_count` female, $M_{Age}$(SD) = `r round(e2.dems$mean.age,2)`(`r round(e2.dems$sd.age,2)`), Range = `r round(e2.dems$min.age,2)` - `r round(e2.dems$max.age,2)`) were recruited from a local preschool. An additional 5 subjects were tested but excluded due to failure on one or two memory check questions or a warm-up question (see Procedures below).
+`r e2.dems$n` four- and five-year-olds (`r e2.dems$female_count` female, $M_{Age}$(SD) = `r round(e2.dems$mean.age,2)`(`r round(e2.dems$sd.age,2)`), range = `r round(e2.dems$min.age,2)` - `r round(e2.dems$max.age,2)`) were recruited from a local preschool^[Planned sample size, exclusion criteria, and analysis plan preregistered at https://aspredicted.org/4r9dh.pdf]. An additional 5 subjects were tested but excluded due to failure on one or two memory check questions or a warm-up question (see Procedures below).
 
 <!-- check exclusions -->
 
-```{r results_e1, fig.env='figure*', fig.align='center', fig.pos='h', fig.cap='Results of Experiment 1. Proportion of children choosing the selective praiser.'}
-
-# ggplot(contest_ms, aes(x = age_bin, y = mean, fill = age_bin)) +
-#   geom_bar(stat="identity", width=.5) +
-#   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper),
-#              position = position_dodge(width = .5))+
-#   xlab("Age Group") +
-#   ylab("Proportion Choosing Selective Praiser") +
-#   langcog::scale_colour_solarized()  +
-#   ggthemes::theme_few() +
-#   ylim(0,1) + 
-#   geom_hline(aes(yintercept=.50), colour="#990000", linetype="dashed") + theme(legend.position = "none")
-```
-
 ### Stimuli
-Children traced two templates (each had a circle and either an overlapping triangle or square) on an 8.5 x 11'' sheet of paper with a thick blue marker. The tracings that children evaluated during the warm-up phase were presented on laminated sheets of paper. Children were presented with the same videos as in Experiment 1 on a 13" Macbook Pro laptop. Pictures of the teachers (Susan and Jane) and the student (Johnny) were 3" x 5" respectively.
+
+Stimuli were the same as those from Experiment 1, except that children also traced two templates (each had a circle and either an overlapping triangle or square) on an 8.5 x 11'' sheet of paper with a thick blue marker (Figure \ref{fig:methods}b). The tracings that children evaluated during the warm-up phase, as well as pictures of the teachers (Susan and Jane) and the student (Johnny) were presented on laminated sheets of paper. Children were shown the videos on a 13" Macbook Pro laptop. 
 
 ### Procedure
-Children were tested in a private room inside of the preschool. The experimenter first told children that the goal of tracing was to stay as close to the lines as possible and demonstrated tracing a rectangle for the child. Then, the child traced two line drawings, and the experimenter put each tracing away into a manila envelope so the child could not see the tracing for the remainder of the session.
+Children were tested in a private room inside of the preschool. The experimenter first told children that the goal of tracing was to stay as close to the lines as possible and demonstrated tracing a rectangle for the child. Then, the child traced the two templates, and the experimenter put each tracing away into a manila envelope so the child could not see the tracing for the remainder of the session.
 
 <!-- Warm up evaluation questions -->
-Next, children were asked to evaluate two pairs of tracings to verify that they could tell the difference between good and bad tracings. In each pair, one tracing was obviously very good and the other tracing was obviously very bad. Children were asked to judge which tracing was better; only children who chose the better tracing in each pair were included in analyses. 
+Next, children were asked to evaluate two pairs of tracings to verify that they could tell the difference between good and bad tracings. As in Experiment 1, in each pair, one tracing was obviously good and the other tracing was obviously bad. Children were asked to judge which tracing was better; only children who chose the better tracing in each pair were included in analyses. 
 
 <!-- Introduction to Johnny and teacher videos -->
-Children were then shown a picture of a student, Johnny. The experimenter told children that Johnny was working on his tracings earlier and wanted help figuring out which of his tracings were good because he wanted to show them to his class later. Children then watched the videos of Johnny receiving praise from the Overpraise Teacher and the Selective Teacher (the same videos used in Experiment 1; the teachers were referred to as Teacher Jane and Teacher Susan). After watching each video, to verify that children understood and remembered each teacher's pattern of praise, children were shown a still frame of the video (with no stars on the drawings) and were asked which tracings the teacher said were great. Children responded by pointing to the tracings. If children incorrectly pointed to a tracing or missed a tracing, then the video was replayed and the memory check question was asked again. Only children who passed the memory check question by the second attempt were included in analyses. 
+Children were then shown a picture of a student, Johnny. The experimenter told children that Johnny was working on his tracings earlier and wanted help figuring out which of his tracings were good because he wanted to show them to his class later. Children watched the same Selective Teacher and Overpraise videos as in Experiment 1. After each video, to verify that children understood and remembered each teacher's pattern of praise, children were shown a still frame of the video (with no stars on the drawings) and were asked which tracings the teacher said were great. Children responded by pointing to the tracings. If children incorrectly pointed to a tracing or missed a tracing, then the video was replayed and the memory check question was asked again. Only children who passed the memory check question by the second attempt were included in analyses. 
 
 <!-- % Test question -->
-After children watched the videos of the teachers and responded to the memory checks, the experimenter told the child that Teacher Jane and Teacher Susan were close by and they could give feedback on the subject's tracings from earlier. The experimenter left the room for 15 seconds with the envelopes containing the child's tracings and then returned. The experimenter said "Teacher Jane looked at this tracing and said that this one is great" and "Teacher Susan looked at this tracing and said that this one is great" (each envelope had the teacher's sticker on it). Finally, with the tracings still in the envelopes, the experimenter asked the child the critical question: "Now you can bring back your best tracing to show your teacher! Which one do you think is the best?" Children responded by pointing to one of the envelopes. 
-
-<!-- %Nicer question -->
-<!-- %Note from Emily- should we include the niceness question? I'm a little hesitant because I think it is likely contaminated by the first question. This is also a short paper so it seems reasonable to pare down what we present. -->
-<!-- %Children were then asked which of the two teachers was trying to be nicer. Subjects responded by pointing to one of the two pictures.  -->
+After children watched the videos of the teachers and responded to the memory checks, the experimenter told the child that Teacher Jane and Teacher Susan were close by and they could give feedback on the subject's tracings from earlier. The experimenter left the room for 15 seconds with the envelopes containing the child's tracings and then returned. The experimenter said "Teacher Jane looked at this tracing and said that this one is great" (pointing to one of the envelopes, and placing a photo of Teacher Jane beside it) and "Teacher Susan looked at this tracing and said that this one is great" (pointing to the other envelope and placing a photo of Teacher Susan beside it). Each envelope also had the corresponding teacher's sticker on it. Finally, with the tracings still in the envelopes, the experimenter asked the child the critical question: "Now you can bring back your best tracing to show your teacher! Which one do you think is the best?" Children responded by pointing to one of the envelopes. As an exploratory measure, children were then asked, "Which teacher do you think was trying to be nicer?" Children responded by pointing to one of the photos of the teachers.
 
 ```{r}
 #get means and CIs for plots
@@ -310,24 +339,26 @@ binom_contest <- binom.test(contest_n$selective_n[1],contest_n$total_n[1])
 
 ```{r}
 #logistic regression
-e2_agereg = summary(glmer(tracing_selective ~ age + condition +
+#trimmed condition because model would not converge
+e2_agereg = summary(glmer(tracing_selective ~ age  +
                (1|sid), 
                data = d_filt_e2, 
                family = "binomial"))
 ```
 
 ##Results and Discussion
-Only children who passed the initial evaluation questions and the memory check questions for each teacher video after the first or second attempt were included in the following analyses. Our main question was which tracing children thought was better: the tracing praised by the Overpraise Teacher or the tracing praised by the Contingent Teacher. Since children could not see which of their tracings was in each envelope, the teachers' praise was the only criteria available to children to evaluate which of their tracings was better.
 
-We found that children were significantly more likely to choose the drawing that had been praised by the Selective Teacher (`r round(e2.table$mean[1]*100,2)`\%, $p$ = `r round(binom_contest$p.value,3)`). Children's age did not predict their preference for the Selective Teacher ($B$ = `r round(e2_agereg$coefficients[2],3)`, $z$ = `r round(e2_agereg$coefficients[5],3)`, $p$ = `r round(e2_agereg$coefficients[11],3)`).
+Our main question was which tracing children thought was better: the tracing praised by the Overpraise Teacher or the tracing praised by the Selective Teacher. Since children could not see which of their tracings was in each envelope, the teachers' praise was the only criteria available to children to evaluate which of their tracings was better. Only children who passed the initial evaluation questions and the memory check questions for each teacher video by the second attempt were included in the following analyses.
+
+We found that children were significantly more likely to choose the drawing that had been praised by the Selective Teacher (`r round(e2.table$mean[1]*100,2)`\%, $p$ = `r round(binom_contest$p.value,3)`; Binomial Test). To investigate whether children's age predicted their choice, a logistic regression was fit with the following structure: `Tracing choice ~ Age in Months + (1 | Subject)`. Children's age did not predict their choice of tracing ($B$ = `r round(e2_agereg$coefficients[2],2)`, $z$ = `r round(e2_agereg$coefficients[6],2)`, $p$ = `r round(e2_agereg$coefficients[8],2)`).
 
 Thus, even preschool-aged children appear to be sensitive to the informativity of praise based on whether the agent has a history of contingent praise or not. Importantly, this means that the majority of children were able to override any positivity bias and avoid selecting the drawing associated with the Overpraise teacher, who might have been perceived as more nice or likeable.
 
-Notably, in this experiment, teachers patterns' of praise differed in two important ways. First, they differed in their contingency on *quality* — the Contingent Teacher only praised tracings that were objectively better, while the Overpraise teacher praised all tracings independent of quality. Secondly, they differed in the *quantity* of tracings praised — the Contingent teacher praised only three out of the six tracings present, while the Overpraise teacher praised all six. Are children sensitive to the informativity of praise when the total amount of praise is held constant, but the accuracy of the feedback differs? We addressed this question in Experiment 3.
-
-<!-- add in logistic regresssion for ages -->
+Notably, in this experiment, teachers patterns' of praise differed in two important ways. First, they differed in the *selectivity* of tracings praised — the Contingent teacher praised only three out of the six tracings present, while the Selective teacher praised all six. Secondly, they differed in their contingency on *quality* — the Selective Teacher only praised tracings that were objectively better, while the Overpraise teacher praised all tracings independent of quality. Thus, it is unclear whether children treated the Selective Teacher's praise as more informative because she previously only praised good tracings, or merely because she was previously selective. We addressed this question in Experiment 3.
 
 #Experiment 3
+
+In Experiment 3, we asked whether children give more weight to praise from individuals who give selective praise that is matched with quality compared to individuals who give selective praise that is mis-matched with quality. Children observed videos similar to those in Experiments 1 and 2, except that one teacher praised only the good tracings (identical to the Selective Teacher in Experiments 1 and 2) and the other teacher praised only the bad tracings (Selective-Reverse Teacher). We predicted that if children track the correspondence between praise and quality, and not merely selectivity, they should believe a tracing praised by the Selective Teacher is likely to be better than one praised by the Selective-Reverse Teacher.
 
 ##Methods
 
@@ -347,15 +378,15 @@ e3.dems <- d_filt_e3 %>%
             female_count = sum(gender))
 ```
 
-`r e3.dems$n` 4-5 year-olds (`r e3.dems$female_count` female, $M_{Age}$(SD) = `r round(e3.dems$mean.age,2)`(`r round(e3.dems$sd.age,2)`), Range = `r round(e3.dems$min.age,2)` - `r round(e3.dems$max.age,2)`) were recruited from a local preschool. An additional XX subjects were tested but excluded due to failure on one or two memory check questions or a warm-up question.
+`r e3.dems$n` 4-year-olds (`r e3.dems$female_count` female, $M_{Age}$(SD) = `r round(e3.dems$mean.age,2)`(`r round(e3.dems$sd.age,2)`), range = `r round(e3.dems$min.age,2)` - `r round(e3.dems$max.age,2)`) were recruited from a local preschool. An additional XX subjects were tested but excluded due to failure on one or two memory check questions or a warm-up question.
 
 ###Stimuli and Design
 
-Stimuli were identical to Experiment 2 except the Overpraise Teacher's video was replaced with the Selective-Reverse Teacher's video. In the Inaccurate Praise video, the layout and order of tracing were the same as in the Contingent and Overpraise Teacher's video, but the teacher praised and gave stars to the worse tracings and provided a neutral response to the better tracings. 
+Stimuli were identical to Experiment 2 except the Overpraise Teacher's video was replaced with the Selective-Reverse Teacher's video. The Selective-Reverse Teacher's video was identical to the Selective Teacher's video, but the teacher praised and gave stars only to the bad tracings and provided a neutral response to the good tracings. 
 
 ###Procedure
 
-The procedure was identical to Experiment 2. As in Experiment 2, the order of the Teacher videos and actor playing each type of teacher was counterbalanced.
+The procedure was identical to Experiment 2. As in Experiment 2, the order of the videos and the actor playing each type of teacher was counterbalanced.
 
 ##Results and Discussion
 
@@ -388,14 +419,30 @@ e3.plot = ggplot(e3.table, aes(question, mean, fill = question)) +
   labs(x = "Question", y = "Proportion Choosing Contingent Praiser")
 ```
 
-```{r results_adult, fig.env='figure*', fig.align='center',fig.width=7,fig.height=3, fig.pos='h',num.cols.cap=1, fig.cap='Results of Experiment 1, 2, and 3.'}
+```{r eval = FALSE}
+r results_adult, fig.env='figure*', fig.align='center',fig.width=7,fig.height=3, fig.pos='h',num.cols.cap=1, fig.cap='Results of Experiment 1, 2, and 3.'}
 img <- png::readPNG("figs/fig2_color.png")
 grid::grid.raster(img)
 ```
 
-Our main question was whether children are sensitive to the contingency of praise on products of better quality, controlling for the frequency of praise. 
+```{r}
+tracing_n = d_filt_e3 %>%
+  summarise(selective_n = sum(tracing_selective),
+            total_n = n())
 
-...
+binom_tracing <- binom.test(tracing_n$selective_n[1],tracing_n$total_n[1])
+```
+
+```{r}
+#logistic regression
+#trimmed condition because model would not converge
+e3_agereg = summary(glmer(tracing_selective ~ age  +
+               (1|sid), 
+               data = d_filt_e3, 
+               family = "binomial"))
+```
+
+Our main question was whether children track the contingency of praise with quality and use this to infer the informativeness of subsequent praise, or whether they treat all selective praise the same regardless of its contingency with quality. We found that children <!-- add results here ---> (`r round(e3.table$mean[1]*100,2)`\%, $p$ = `r round(binom_tracing$p.value,2)`; Binomial Test). As in Experiment 2, to investigate whether children's age predicted their choice, a logistic regression was fit with the following structure: `Tracing choice ~ Age in Months + (1 | Subject)`. Children's age did <!-- add results here ---> not predict their choice of tracing ($B$ = `r round(e3_agereg$coefficients[2],2)`, $z$ = `r round(e3_agereg$coefficients[6],2)`, $p$ = `r round(e3_agereg$coefficients[8],2)`).
 
 # General Discussion
 
