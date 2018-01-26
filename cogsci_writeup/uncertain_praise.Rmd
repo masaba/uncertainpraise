@@ -352,7 +352,7 @@ full_data_plot <- full_data %>%
 #         axis.text.y  = element_text(vjust=0.5, size=20),
 #         axis.title.y = element_text(size=20))
 
-ggplot(full_data_plot, aes(x = experiment, y = mean, fill = experiment)) +
+ggplot(full_data_plot, aes(x = experiment, y = mean)) +
   geom_bar(stat="identity", width=.5) +
   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper),
              position = position_dodge(width = .5))+
