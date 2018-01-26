@@ -77,9 +77,13 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 }
 ```
 
-Imagine that you just gave a presentation and you are uncertain of how well you did, so you ask your friends, Tim and Sam, for their opinions. While Tim usually provides positive feedback to everyone regardless of how well they actually performed, Sam tends to provide more helpful, honest feedback. Given these different patterns of evaluations, you might use Sam's evaluation to actually learn about the quality of your presentation. As adults, we intuitively understand that others' feedback can be differentially informative depending on the evaluator's expertise, commmunicative goal, or sincerity, and we can take these factors into consideration when interpreting others' evaluations of us. These abilities might be especially critical for young children who are attempting to learn about their skills, abilities, and weaknesses amidst a flood of constant praise and feedback from others. 
+Imagine that you just gave a presentation and you are uncertain of how well you did, so you ask your friends, Tim and Sam, for their opinions. While Tim usually provides positive feedback to everyone regardless of how well they actually performed, Sam tends to provide more helpful, honest feedback. Given these different patterns of evaluations, you might use Sam's evaluation to actually learn about the quality of your presentation. As adults, we intuitively understand that others' feedback can be differentially informative depending on the evaluator's expertise, commmunicative goal, or sincerity, and we can take these factors into consideration when interpreting others' evaluations of us. These abilities might be especially critical for young children, as they are attempting to learn about their skills, abilities, and weaknesses amidst a flood of constant feedback and evaluations from others. 
 
-Performance praise -- positive evaluations of a person's performances or attributes [see @kanouse1981semantics] -- has become ubiquitous in parenting and education practices in Western societies. Praise can influence children's intrinsic motivation and subsquent learning behaviors [see @henderlong2002effects for a review], and children appear to be able to differentiate between praise that is inflated or not [@brummelman2014s], or praise that is directed at an inherent ability versus at the effort involved in pursuing a task [@kamins1999person]. However, one open question is whether young children can reason about the \textit{informativeness} of others' praise, or the reliable contingency of praise on the quality of a product. Further, can they use others' informativeness to selectively assess their own work?
+In particular, performance praise -- positive evaluations of a person's performances or attributes [see @kanouse1981semantics] -- has become ubiquitous in parenting and education practices in Western societies. Given that children's intrinsic motivation is differentially influenced depending on whether praise received inflated or not [@brummelman2014s], or whether it is directed at an inherent ability or effort [@kamins1999person], it seems that children can at least differentiate between different types of praise. Can children also reason about the informational value of others' praise? In the current work, we investigate (1) whether young children can reason about the \textit{informativeness} of others' praise, or the reliable contingency of praise on the quality of a product, from others' history of providing praise, and (2) if so, whether they can use others' informativeness to assess their own work.
+
+<!-- In particular, performance praise -- positive evaluations of a person's performances or attributes [see @kanouse1981semantics] -- has become ubiquitous in parenting and education practices in Western societies. Given that children's intrinsic motivation can be differentially influenced depending on whether it is inflated or not [@brummelman2014s], or whether it is directed at an inherent ability or effort [@kamins1999person], it seems that children can differentiate between different types of praise.  -->
+
+
 
 <!-- However, while much work has been devoted to how praise influences children's self-esteem [e.g., @brummelman2014s], intrinsic motivation [see @henderlong2002effects for a review], and learning behaviors [e.g., @mueller1998praise], one open question is how young children might monitor the \textit{informativeness} of praise and selectively use others' praise to assess their own work. -->
 
@@ -101,15 +105,16 @@ Performance praise -- positive evaluations of a person's performances or attribu
 <!-- Main question + children's sensitivity to sincerity -->
 
 <!-- Selective trust -->
-In fact, young children are quite savvy in judging the information that others provide, at least when it comes to information about the physical world (e.g., the names or locations of objects, or how a toy works). By the preschool years, children can track the accuracy of others' testimony (e.g., whether they provide correct or incorrect labels of common household objects), prefer to learn from those who previously provided accurate labels [@koenig2004trust, birch2008three, harris2011young], and can continually update their evaluations of others' trustworthiness across multiple interactions [@ronfard2017preschoolers]. Furthermore, children are not only able to make evaluations based on the accuracy of others' verbal testimony, but also the informativeness of others' pedagogical demonstrations. Even 4 year-old children negatively evaluate teachers who leave out relevant information [@gweon2017order] or provide unnecessary information [@gweon2014children].
 
-<!-- add transition in here -->
-Although children appear to be competent in evaluating informants in the physical domain, there are a few reasons that they might struggle with evaluating others' praise for the self. First, children may hold strong beliefs about their own competence, which may interfere with their ability to integrate social information into their self-perceptions. Young children tend to overestimate their performance, predicting that they will perform better in the future than they are able to [@schneider1998performance], and judging that they have performed well when they have not [@hembacher2014don]. This positivity bias or “wishful thinking” towards their own abilities may undermine their ability to evaluate the informativity of feedback and use it to understand their own performance.
+<!-- Our main prediction is that young children can monitor others' the informativeness of others' praise and use it to effectively learn about their own abilities and products.  -->
 
-Second, recent work has revealed that young children are biased to trust testimony from more positive sources, irrespective of the informativeness of the evaluation. Preschool children trust novel information from more physically attractive [@bascandziev2014beauty] and nicer informants [@johnston2015children], even when these informants lack expertise or perceptual access [@lane2013informants]. Young children are also more likely to endorse reliable speakers who make positive attributions [e.g., remarking that a character is "nice" versus "mean"; @boseovski2012trust]. Further, even 6-8 year-olds are more willing to endore and learn from informants who make positive evaluations of a student's product (describing a painting or piece of music as "very good" versus "very bad") independently of the speaker's expertise in that domain [describing a painting @boseovski2017role].
+When faced between a teacher who always provides praise and one who selectively provides praise, contingent on the quality of a product, one possibility is that children can differentiate between the teachers and trust the informant who provides selective praise. Indeed, much work on children's evaluations of others' testimony has shown that young children appear to be quite savvy in figuring out \textit{whose} information to trust, at least when it comes to information about the physical world (e.g., the names or locations of objects, or how a toy works). By the preschool years, children can track the accuracy of others' testimony (e.g., whether they provide correct or incorrect labels of common household objects), prefer to learn from those who previously provided accurate labels [@koenig2004trust, @birch2008three, @harris2011young], and can continually update their evaluations of others' trustworthiness across multiple interactions [@ronfard2017preschoolers]. 
 
-<!-- shorten this paragraph -->
-This work on children's positivity bias in the selective trust literature has largely pitted an informant's valence (positive qualities or positive information) against her expertise or the consensus of a group. In these studies, children did not have access to information about the target agent or agent's product so they were unable to evaluate whether the speaker's evaluation was appropriate or not. However, even infants make appropriate social evaluations [e.g., @hamlin2007social] and preschool-aged children can differentiate amongst qualities of others' products to make inferences about their own abilities [seeing that others have created better or worse tracings than their own; @magid2015quit]. So, to the extent that children themselves can evaluate a product, they might be sensitive to the contingency of a speaker's evaluation on the subjective quality of the product and use this to judge the informational value of a speaker's praise.
+Children are not only able to make evaluations based on the accuracy of others' verbal testimony, but also the informativeness of others' pedagogical demonstrations. Even 4 year-old children negatively evaluate teachers who leave out relevant information [@gweon2017order] or provide unnecessary information [@gweon2014children] with respect to a learner's goal or prior knowledge. Further, children adjust their exploratory behavior depending on whether an informant has previously provided complete information, suggesting that they are able to use others' history of informativeness to determine how much to trust current subsequent information.
+
+Another possibility is that children might be biased to trust informants who always provide praise. Recent work has revealed that young children are biased to trust testimony from more positive sources, irrespective of the informativeness of the evaluation. Preschool children trust novel information from nicer informants [@johnston2015children], even when these informants lack expertise or perceptual access [@lane2013informants]. Young children are also more likely to endorse reliable speakers who make positive attributions [e.g., remarking that a character is "nice" versus "mean"; @boseovski2012trust] or positive evaluations of a student's product, independently of the speaker's competence in that domain [describing a painting @boseovski2017role]. However, in these studies, children did not have access to information about the target agent or agent's product so they were unable to evaluate whether the speaker's evaluation was appropriate or not. To the extent that children themselves can evaluate a product, they might be sensitive to the contingency of a speaker's evaluation on the subjective quality of the product and use this to judge the informational value of a speaker's praise.
+
+Finally, children could be insensitive to the informativeness of others' praise. Children tend to hold strong beliefs about their own competence, which may interfere with their ability to integrate social information into their self-perceptions. Young children tend to overestimate their performance, predicting that they will perform better in the future than they are able to [@schneider1998performance], and judging that they have performed well when they have not [@hembacher2014don]. This positivity bias or “wishful thinking” towards their own abilities may undermine their ability to evaluate the informativity of feedback and use it to understand their own performance. [add final sentence here why we we think this is unlikely in this context?]
 
 The present work asks whether young children can track the informativeness of others' praise by observing others' evaluations of another child, and if so, whether they can then use others' informativeness to appropriately evaluate their own work. We chose a task that preschool-aged children are familiar with but motivated to improve on: tracing shapes with a pen. Experiment 1 confirms that adults can differentiate between a teacher who always provides praise (Overpraise Teacher) and a  teacher who only praises the better tracings (Selective Teacher); they can use teachers' prior informativeness to appropriately evaluate which of two hidden tracings is better. In a similar, first-person paradigm, experiment 2 demonstrates that even 4- and 5-year-olds can differentiate between these two types of teachers and endorse the Selective Teacher's praise. Experiment 3 controls for the frequency of praise provided by each teacher by pitting the Selective Teacher against a teacher who only provides praise to the worse tracings (Selective-Reverse Teacher). 
 
@@ -210,21 +215,21 @@ full_data_plot <- full_data %>%
 
 ```{r results, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=7.5, fig.height=5, out.width="3in", out.height="2in", set.cap.width=T, num.cols.cap=1, fig.cap = 'Results of Experiments 1-3: Proportion of participants choosing the tracing praised by the selective praiser. In Experiments 1 and 2, participants chose between Selective and Overpraise Teachers, and in Experiment 3, participants chose between Selective and Selective-Reversed Teachers. Error bars are 95 percent confidence intervals.'}
 
-ggplot(full_data_plot, aes(x = experiment, y = mean, fill = experiment)) +
-  geom_bar(stat="identity", width=.5) +
-  geom_linerange(aes(ymin = ci_lower, ymax = ci_upper),
-             position = position_dodge(width = .5))+
-  ylab("Tracing Praised by Selective Praiser") +
-  scale_fill_viridis(discrete = TRUE) +   
-  ggthemes::theme_few() + 
-  ylim(0,1) +
-  ggtitle("Which tracing is better?")+ 
-  theme(axis.title.x=element_blank(),
-        title = element_text(vjust=0.5, size=22),
-        legend.position="none",
-        axis.text.x  = element_text(vjust=0.5, size=20),
-        axis.text.y  = element_text(vjust=0.5, size=20),
-        axis.title.y = element_text(size=20))
+# ggplot(full_data_plot, aes(x = experiment, y = mean, fill = experiment)) +
+#   geom_bar(stat="identity", width=.5) +
+#   geom_linerange(aes(ymin = ci_lower, ymax = ci_upper),
+#              position = position_dodge(width = .5))+
+#   ylab("Tracing Praised by Selective Praiser") +
+#   scale_fill_viridis(discrete = TRUE) +   
+#   ggthemes::theme_few() + 
+#   ylim(0,1) +
+#   ggtitle("Which tracing is better?")+ 
+#   theme(axis.title.x=element_blank(),
+#         title = element_text(vjust=0.5, size=22),
+#         legend.position="none",
+#         axis.text.x  = element_text(vjust=0.5, size=20),
+#         axis.text.y  = element_text(vjust=0.5, size=20),
+#         axis.title.y = element_text(size=20))
 
 ggplot(full_data_plot, aes(x = experiment, y = mean, fill = experiment)) +
   geom_bar(stat="identity", width=.5) +
@@ -234,7 +239,7 @@ ggplot(full_data_plot, aes(x = experiment, y = mean, fill = experiment)) +
   scale_fill_viridis(discrete = TRUE) +   
   ggthemes::theme_few() + 
   ylim(0,1) +
-  ggtitle("Which tracing is better?")+ 
+ # ggtitle("Which tracing is better?")+ 
   theme(axis.title.x=element_blank(),
         title = element_text(vjust=0.5, size=22),
         legend.position="none",
@@ -461,6 +466,9 @@ e3_agereg = summary(glmer(tracing_selective ~ age  +
 Our main question was whether children track the contingency of praise with quality and use this to infer the informativeness of subsequent praise, or whether they treat all selective praise the same regardless of its contingency with quality. We found that children <!-- add results here ---> (`r round(e3.table$mean[1]*100,2)`\%, $p$ = `r round(binom_tracing$p.value,2)`; Binomial Test). As in Experiment 2, to investigate whether children's age predicted their choice, a logistic regression was fit with the following structure: `Tracing choice ~ Age in Months + (1 | Subject)`. Children's age did <!-- add results here ---> not predict their choice of tracing ($B$ = `r round(e3_agereg$coefficients[2],2)`, $z$ = `r round(e3_agereg$coefficients[6],2)`, $p$ = `r round(e3_agereg$coefficients[8],2)`).
 
 # General Discussion
+
+<!-- Finally, children could be insensitive to the informativeness of others' praise. Children tend to hold strong beliefs about their own competence, which may interfere with their ability to integrate social information into their self-perceptions. Young children tend to overestimate their performance, predicting that they will perform better in the future than they are able to [@schneider1998performance], and judging that they have performed well when they have not [@hembacher2014don]. This positivity bias or “wishful thinking” towards their own abilities may undermine their ability to evaluate the informativity of feedback and use it to understand their own performance. -->
+
 
 In three experiments, we examined how children and adults evaluate the informativeness of others' praise and use it to determine the quality of their own or others' work. Experiment 1 confirms that adults differentiate between a teacher who \textit{always} provides praise irrespective of the quality of the product and a teacher who provides praise contingent on the quality. Experiment 2 shows that 4-5 year-old children distinguish between these patterns of praise and weigh the Contingent Teacher's feedback more heavily in deciding which of their two tracings is better. Experiment 3 shows that when the amount of praise and contents of evaluation are held constant, 4 year-olds prefer evaluations from teachers who provide more accurate evaluations. These findings suggest that young children spontaneously evaluate the informativeness of others’ praise based on the contingency between praise and quality, and that when assessing their own work, children give more weight to praise from informative teachers.
 
